@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import DenseAppBar from "../components/denseAppBar";
 import MorningTeaModal from "../modals/morningTeaModal";
 import EveningTeaModal from "../modals/eveningTeaModal";
-// import Lunch from "../modals/lunch";
+import Lunch from "../modals/lunch";
 import background from "../assets/image44.PNG";
 export default function Home() {
   return (
@@ -38,7 +38,7 @@ export default function Home() {
               <MorningTeaModal />
             </Grid>
             <Grid item xs={4} sx={{ display: "flex", justifyContent: "center" }}>
-              {/* <Lunch /> */}
+              <Lunch />
             </Grid>
             <Grid item xs={4} sx={{ display: "flex", justifyContent: "center" }}>
               <EveningTeaModal />
