@@ -58,8 +58,9 @@ export default function EveningTeaModal() {
           sx={{
             backgroundColor: "primary.main",
             color: "#fafafa",
-            width: "9rem",
-            height: "9rem",
+            width: "15vw",
+            height: "15vw",
+            padding: "41px",
             borderRadius: "50%"
           }}
           endIcon={<LocalCafeIcon />}

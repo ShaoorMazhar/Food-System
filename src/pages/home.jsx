@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import DenseAppBar from "../components/denseAppBar";
 import MorningTeaModal from "../modals/morningTeaModal";
 import EveningTeaModal from "../modals/eveningTeaModal";
-import Lunch from "../modals/lunch";
+// import Lunch from "../modals/lunch";
 import background from "../assets/image44.PNG";
 export default function Home() {
   return (
@@ -28,16 +28,23 @@ export default function Home() {
             md={7}
             sx={{
               display: "flex",
-              border: "5px solid black",
-              justifyContent: "flex-end",
+              // border: "5px solid black",
+              justifyContent: "center",
+
               alignItems: "flex-end"
               // flexDirection: "column"
             }}>
-            <MorningTeaModal />
-            <Lunch />
-            <EveningTeaModal />
+            <Grid item xs={4} sx={{ display: "flex", justifyContent: "center" }}>
+              <MorningTeaModal />
+            </Grid>
+            <Grid item xs={4} sx={{ display: "flex", justifyContent: "center" }}>
+              {/* <Lunch /> */}
+            </Grid>
+            <Grid item xs={4} sx={{ display: "flex", justifyContent: "center" }}>
+              <EveningTeaModal />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={5} sx={{ border: "5px solid blue" }}>
+          <Grid item xs={12} md={5}>
             <img
               src="https://img.freepik.com/premium-photo/waiter-takes-order-with-notebook-pencil-3d-illustration-cartoon-style_578102-3829.jpg"
               alt="home"

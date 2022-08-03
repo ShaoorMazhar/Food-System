@@ -59,8 +59,9 @@ export default function MoriningTeaModal() {
           sx={{
             backgroundColor: "primary.main",
             color: "#fafafa",
-            width: "9rem",
-            height: "9rem",
+            width: "15vw",
+            height: "15vw",
+            padding: "41px",
             borderRadius: "50%",
             marginRight: ".5rem"
           }}
