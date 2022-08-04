@@ -1,14 +1,17 @@
 import React from "react";
 import Grid from "@mui/material/Grid";
 import DenseAppBar from "../components/denseAppBar";
-import MorningTeaModal from "../modals/morningTeaModal";
-import EveningTeaModal from "../modals/eveningTeaModal";
+import BasicModal from "../modals/basicModal";
 import Typography from "@mui/material/Typography";
-import Lunch from "../modals/lunch";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+import morning from "../assets/image2.png";
+import LunchRequirement from "../components/lunchRequirement";
+import TeaRequirements from "../components/teaRequirements";
 import background from "../assets/image33.PNG";
 import waiter from "../assets/image66.png";
+import lunch from "../assets/image4.png";
+import evening from "../assets/image3.png";
 export default function Home() {
   return (
     <div>
@@ -67,13 +70,25 @@ export default function Home() {
                     justifyContent: "center",
                     marginRight: "1%"
                   }}>
-                  <MorningTeaModal />
+                  <BasicModal
+                    data={<TeaRequirements />}
+                    background={morning}
+                    src="https://img.freepik.com/premium-photo/coffee-break-minimal-white-blue-background-template-with-cup-coffee-copy-space_197174-9.jpg?w=2000"
+                  />
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-                  <Lunch />
+                  <BasicModal
+                    data={<LunchRequirement />}
+                    background={lunch}
+                    src="https://picjumbo.com/wp-content/uploads/healthy-taco-with-place-for-text-free-photo-1080x720.jpg"
+                  />
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-                  <EveningTeaModal />
+                  <BasicModal
+                    data={<TeaRequirements />}
+                    background={evening}
+                    src="https://static.vecteezy.com/system/resources/previews/003/125/420/large_2x/electronic-pen-smartphone-book-coffee-mug-on-blue-background-free-photo.jpg"
+                  />
                 </Grid>
               </Grid>
             </Grid>
