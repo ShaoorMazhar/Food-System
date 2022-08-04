@@ -15,8 +15,8 @@ const theme = createTheme({
   typography: {
     h3: {
       fontWeight: 600,
-      lineHeight: "1.4",
-      fontSize: "2.2rem"
+      fontSize: "4rem",
+      fontFamily: "Brush Script MT"
     },
     h4: {
       fontWeight: 600,
