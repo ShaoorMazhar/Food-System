@@ -7,9 +7,9 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+import background from "../assets/image4.png";
 import Btn from "../components/button";
 import EditButton from "../components/editButton";
-import RamenDiningIcon from "@mui/icons-material/RamenDining";
 import DeleteButton from "../components/deleteButton";
 import { Grid } from "@mui/material";
 const style = {
@@ -29,14 +29,13 @@ export default function Lunch() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [UserName, setUserName] = useState("");
-  const [item_description, setItem_description] = useState("");
+  const [itemDescription, setItemDescription] = useState("");
   const [roti, setRoti] = useState("");
   const [amount, setAmount] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(UserName, roti, amount, item_description);
     setUserName("");
-    setItem_description("");
+    setItemDescription("");
     setRoti("");
     setAmount("");
   };
@@ -44,19 +43,22 @@ export default function Lunch() {
     <div>
       <ThemeProvider theme={theme}>
         <Button
+          className="modalButton"
           sx={{
-            backgroundColor: "primary.main",
-            color: "#fafafa",
+            backgroundImage: `url(${background})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
             width: "15vw",
             height: "15vw",
             borderRadius: "50%",
             padding: "41px",
-            marginRight: ".5rem"
+            marginRight: "15px",
+            opacity: "1",
+            transition: "0.3s"
           }}
-          endIcon={<RamenDiningIcon />}
-          onClick={handleOpen}>
-          Lunch
-        </Button>
+          onClick={handleOpen}
+        />
+
         <Modal
           open={open}
           onClose={handleClose}
@@ -115,12 +117,12 @@ export default function Lunch() {
               />
               <TextField
                 onChange={(e) => {
-                  setItem_description(e.target.value);
+                  setItemDescription(e.target.value);
                 }}
                 id="item_decsription"
                 label="Items(Description)"
                 variant="outlined"
-                value={item_description}
+                value={itemDescription}
                 sx={{ marginTop: "20px", width: "100%" }}
               />
 
@@ -136,7 +138,7 @@ export default function Lunch() {
                 <Grid item xs={12} md={3} lg={2}>
                   <Btn
                     disabled={
-                      UserName === "" || item_description === "" || amount === "" || roti === ""
+                      UserName === "" || itemDescription === "" || amount === "" || roti === ""
                     }
                     text="Order"
                     onClick={handleSubmit}

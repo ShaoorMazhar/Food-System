@@ -7,10 +7,10 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { ThemeProvider } from "@mui/material/styles";
 import RadioButtonsGroup from "../components/radioButtonGroup";
+import background from "../assets/image2.png";
 import theme from "../theme";
 import Btn from "../components/button";
 import EditButton from "../components/editButton";
-import LocalCafeIcon from "@mui/icons-material/LocalCafe";
 import DeleteButton from "../components/deleteButton";
 import { Grid } from "@mui/material";
 
@@ -31,44 +31,35 @@ export default function MoriningTeaModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [UserName, setUserName] = useState("");
-  const [sugar_quantity, setSugar_quantity] = useState("");
-  const [tea_volume, setTea_volume] = useState("half cup");
+  const [sugarQuantity, setSugarQuantity] = useState("");
+  const [teaVolume, setTeaVolume] = useState("half cup");
   const handleSubmit = (e) => {
     e.preventDefault();
-    // toast("Product added successfully!");
-    // const newProducts = {
-    //   name: name,
-    //   category: category,
-    //   price: price,
-    //   quantity: quantity
-    // };
-    // const DataApi = await addProductData(newProducts, id);
-
-    // dispatch(addProduct(DataApi));
-    // setProducts([...products, newProducts]);
-    console.log(UserName, sugar_quantity, tea_volume);
     setUserName("");
-    setSugar_quantity("");
-    setTea_volume("half cup");
-    // navigate(`/table/storeProducts/${id}`);
+    setSugarQuantity("");
+    setTeaVolume("half cup");
   };
   return (
     <div>
       <ThemeProvider theme={theme}>
         <Button
+          className="modalButton"
           sx={{
-            backgroundColor: "primary.main",
+            backgroundImage: `url(${background})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
             color: "#fafafa",
             width: "15vw",
             height: "15vw",
             padding: "41px",
             borderRadius: "50%",
-            marginRight: ".5rem"
+            marginRight: "15px",
+            opacity: "1",
+            transition: "0.3s"
           }}
-          endIcon={<LocalCafeIcon />}
-          onClick={handleOpen}>
-          Morning Tea
-        </Button>
+          onClick={handleOpen}
+        />
+
         <Modal
           open={open}
           onClose={handleClose}
@@ -105,16 +96,16 @@ export default function MoriningTeaModal() {
               />
               <TextField
                 onChange={(e) => {
-                  setSugar_quantity(e.target.value);
+                  setSugarQuantity(e.target.value);
                 }}
                 type="number"
                 id="suger_quantity"
                 label="Sugar Quantity(spoon)"
                 variant="outlined"
-                value={sugar_quantity}
+                value={sugarQuantity}
                 sx={{ marginTop: "20px", width: "100%" }}
               />
-              <RadioButtonsGroup tea_volume={tea_volume} setTea_volume={setTea_volume} />
+              <RadioButtonsGroup tea_volume={teaVolume} setTea_volume={setTeaVolume} />
               <Grid container sx={{ justifyContent: "space-around", marginTop: "25px" }}>
                 <Grid item xs={12} lg={5}></Grid>
                 <Grid item xs={12} md={3} lg={2}>
@@ -125,7 +116,7 @@ export default function MoriningTeaModal() {
                 </Grid>
                 <Grid item xs={12} md={3} lg={2}>
                   <Btn
-                    disabled={UserName === "" || sugar_quantity === "" || tea_volume === ""}
+                    disabled={UserName === "" || sugarQuantity === "" || teaVolume === ""}
                     text="Order"
                     onClick={handleSubmit}
                   />
