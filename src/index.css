@@ -30,3 +30,7 @@ code {
     margin: 3% !important;
   }
 }
+
+.css-50occg-MuiButtonBase-root-MuiTab-root {
+  flex-grow: 1;
+}
