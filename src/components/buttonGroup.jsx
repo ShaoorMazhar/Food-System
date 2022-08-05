@@ -1,20 +1,33 @@
 import React from "react";
-import EditButton from "../components/editButton";
-import DeleteButton from "../components/deleteButton";
 import { Grid } from "@mui/material";
 import Btn from "../components/button";
-export default function ButtonGroup(props) {
+import CheckIcon from "@mui/icons-material/Check";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+export default function ButtonGroup({ handleSubmit, disabled }) {
   return (
     <Grid container sx={{ justifyContent: "space-around", marginTop: "25px" }}>
       <Grid item xs={12} lg={5}></Grid>
       <Grid item xs={12} md={3} lg={2}>
-        <DeleteButton />
+        <Btn
+          color="error"
+          text="Delete"
+          onClick={handleSubmit}
+          variant="contained"
+          endIcon={<DeleteIcon />}
+        />
       </Grid>
       <Grid item xs={12} md={3} lg={2}>
-        <EditButton />
+        <Btn text="Edit" onClick={handleSubmit} variant="contained" endIcon={<EditIcon />} />
       </Grid>
       <Grid item xs={12} md={3} lg={2}>
-        <Btn disabled={props.disabled} text="Order" onClick={props.handleSubmit} />
+        <Btn
+          disabled={disabled}
+          text="Order"
+          onClick={handleSubmit}
+          variant="contained"
+          endIcon={<CheckIcon />}
+        />
       </Grid>
     </Grid>
   );
