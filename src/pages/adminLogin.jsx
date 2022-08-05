@@ -1,6 +1,6 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
+import Btn from "../components/button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -71,9 +71,7 @@ export default function AdminLogin() {
                     id="password"
                     autoComplete="current-password"
                   />
-                  <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                    Sign In
-                  </Button>
+                  <Btn type="submit" variant="contained" text="Sign In" />
                   <Grid container>
                     <Grid container justifyContent="flex-end">
                       <Link href="/userLogin" variant="body1">
