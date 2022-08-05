@@ -17,9 +17,6 @@ export default function DenseAppBar() {
       setLoading(false);
     }, 3000);
   }, []);
-  // useEffect(() => {
-  //   throw new Error("custom error");
-  // });
   return (
     <ThemeProvider theme={theme}>
       {loading ? (
@@ -60,13 +57,13 @@ export default function DenseAppBar() {
                   </Link>
                 </Button>
 
-                {/* <Button color="inherit">
+                <Button color="inherit">
                   <Link
                     style={{ color: "#fafafa", textDecoration: "none", fontSize: "1rem" }}
-                    to="/table">
-                    Stores
+                    to="/userLogin">
+                    Landing
                   </Link>
-                </Button> */}
+                </Button>
               </Toolbar>
             </AppBar>
           </Box>
