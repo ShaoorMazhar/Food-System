@@ -1,10 +1,10 @@
 const initialState = {
-  products: []
+  signIn: []
 };
 
-const productReducer = (state = initialState, action) => {
+const signInReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ADD_PRODUCT":
+    case "signIn":
       return {
         ...state,
         products: [...state.products, action.payload]
@@ -13,4 +13,4 @@ const productReducer = (state = initialState, action) => {
       return state;
   }
 };
-export default productReducer;
+export default signInReducer;
