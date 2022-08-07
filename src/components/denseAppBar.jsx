@@ -52,18 +52,12 @@ export default function DenseAppBar() {
                       fontSize: "1rem",
                       marginRight: "30px"
                     }}
-                    to="/">
+                    to="/home">
                     Home
                   </Link>
                 </Button>
 
-                <Button color="inherit">
-                  <Link
-                    style={{ color: "#fafafa", textDecoration: "none", fontSize: "1rem" }}
-                    to="/auth">
-                    Landing
-                  </Link>
-                </Button>
+                <Button color="inherit">logout</Button>
               </Toolbar>
             </AppBar>
           </Box>

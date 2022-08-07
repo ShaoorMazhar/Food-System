@@ -27,7 +27,8 @@ export default function SignIn({ handleChange }) {
     };
     const DataApi = await signIn(newUser);
     dispatch(sign_In(DataApi));
-    console.log(email, password);
+    localStorage.setItem("token", DataApi.payload.data.token);
+
     setEmail("");
     setPassword("");
   };
