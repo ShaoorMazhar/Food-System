@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Btn from "../components/button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,15 +11,25 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+import { useDispatch } from "react-redux";
+import { signIn } from "../services/tableDataServices";
+import { sign_In } from "../redux/actions/action";
 
 export default function SignIn({ handleChange }) {
-  const handleSubmit = (event) => {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const dispatch = useDispatch();
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password")
-    });
+    const newUser = {
+      email: email,
+      password: password
+    };
+    const DataApi = await signIn(newUser);
+    dispatch(sign_In(DataApi));
+    console.log(email, password);
+    setEmail("");
+    setPassword("");
   };
 
   return (
@@ -41,6 +51,10 @@ export default function SignIn({ handleChange }) {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
               margin="normal"
               required
               fullWidth
@@ -51,6 +65,10 @@ export default function SignIn({ handleChange }) {
               autoFocus
             />
             <TextField
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               margin="normal"
               required
               fullWidth
@@ -60,19 +78,20 @@ export default function SignIn({ handleChange }) {
               id="password"
               autoComplete="current-password"
             />
-            <Btn type="submit" variant="contained" text="Sign In" />
+            <Btn
+              type="submit"
+              variant="contained"
+              text="Sign In"
+              disableled={email === "" || password === ""}
+            />
 
-            <Grid container>
-              <Grid item xs={12}>
-                <Link href="/adminLogin" variant="body1">
-                  {"Sign as Admin"}
-                </Link>
-              </Grid>
-              <Grid container justifyContent="flex-end">
-                <Link href="#" variant="body2" onClick={() => handleChange("event", 1)}>
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+            <Grid container sx={{ justifyContent: "space-between" }} mt={2}>
+              <Link href="/adminLogin" variant="body1">
+                {"Sign as Admin"}
+              </Link>
+              <Link href="#" variant="body1" onClick={() => handleChange("event", 1)}>
+                {"Don't have an account? Sign Up"}
+              </Link>
             </Grid>
           </Box>
         </Box>

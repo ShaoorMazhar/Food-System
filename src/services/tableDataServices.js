@@ -9,3 +9,13 @@ export const signUp = async (body) => {
     return e;
   }
 };
+
+export const signIn = async (body) => {
+  try {
+    const response = await request("/api/users/log-in", "POST", body);
+    console.log(response);
+    return response;
+  } catch (e) {
+    return e;
+  }
+};

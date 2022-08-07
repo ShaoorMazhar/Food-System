@@ -7,7 +7,7 @@ const signInReducer = (state = initialState, action) => {
     case "signIn":
       return {
         ...state,
-        products: [...state.products, action.payload]
+        signIn: [...state.signIn, action.payload]
       };
     default:
       return state;
