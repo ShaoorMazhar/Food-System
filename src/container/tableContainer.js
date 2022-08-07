@@ -8,7 +8,6 @@ export default function TableContainer() {
     const tableData = await getTableData();
 
     setTableRowsData(tableData);
-    console.log(tableData);
   };
   useEffect(() => {
     fetchTableData();
