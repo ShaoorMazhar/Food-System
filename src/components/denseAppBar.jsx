@@ -60,7 +60,7 @@ export default function DenseAppBar() {
                 <Button color="inherit">
                   <Link
                     style={{ color: "#fafafa", textDecoration: "none", fontSize: "1rem" }}
-                    to="/userLogin">
+                    to="/auth">
                     Landing
                   </Link>
                 </Button>
