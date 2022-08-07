@@ -9,24 +9,32 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+import { useDispatch } from "react-redux";
 import Btn from "../components/button";
+import { signUp } from "../services/tableDataServices";
+import { sign_up } from "../redux/actions/action";
 
 export default function SignUp() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const handleSubmit = (event) => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password")
-    // });
+    const newUser = {
+      userName: userName,
+      email: email,
+      password: password
+    };
+    const DataApi = await signUp(newUser);
+    dispatch(sign_up(DataApi));
+    setUserName(""), setEmail(""), setPassword("");
   };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -50,6 +58,7 @@ export default function SignUp() {
                   }}
                   required
                   fullWidth
+                  value={userName}
                   id="userName"
                   label="User Name"
                   name="userName"
@@ -60,6 +69,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  value={email}
                   onChange={(e) => {
                     setEmail(e.target.value);
                   }}
@@ -73,6 +83,7 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
@@ -86,6 +97,7 @@ export default function SignUp() {
             </Grid>
             <Btn
               type="submit"
+              onClick={handleSubmit}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               disabled={userName === "" || email === "" || password === ""}

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Btn from "../components/button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -9,17 +9,28 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+import { ToastContainer, toast } from "react-toastify";
 export default function AdminLogin() {
+  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password")
-    });
+    if (email === "faisal@luminogics.com" && password === "faisal22") {
+      localStorage.setItem("email", "faisal@luminogics.com");
+      toast("Login Successfull!");
+      navigate("/adminPortal");
+    } else if (email !== "faisal@luminogics.com") {
+      toast("Wrong Email Address");
+    } else if (password !== "faisal22") {
+      toast("Wrong password!");
+    } else {
+      toast("Wrong Email and password!");
+    }
   };
 
   return (
@@ -56,6 +67,10 @@ export default function AdminLogin() {
                     required
                     fullWidth
                     id="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
                     label="Email Address"
                     name="email"
                     autoComplete="email"
@@ -66,15 +81,35 @@ export default function AdminLogin() {
                     required
                     fullWidth
                     name="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
                     label="Password"
                     type="password"
                     id="password"
                     autoComplete="current-password"
                   />
-                  <Btn type="submit" variant="contained" text="Sign In" />
+                  <Btn
+                    type="submit"
+                    variant="contained"
+                    text="Sign In"
+                    disabled={email === "" || password === ""}
+                  />
+                  <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                  />
                   <Grid container>
                     <Grid container justifyContent="flex-end">
-                      <Link href="/userLogin" variant="body1">
+                      <Link href="/auth" variant="body1">
                         {"Sigin as User"}
                       </Link>
                     </Grid>
