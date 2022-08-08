@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import Btn from "../components/button";
 import { signUp } from "../services/tableDataServices";
@@ -27,9 +28,15 @@ export default function SignUp() {
       email: email,
       password: password
     };
-    const DataApi = await signUp(newUser);
-    dispatch(sign_up(DataApi));
-    setUserName(""), setEmail(""), setPassword("");
+    const userData = await signUp(newUser);
+    dispatch(sign_up(userData));
+    console.log(userData, "ddd");
+    if (userData?.metadata?.status === "SUCCESS") {
+      toast("Sign Up Successfully!");
+      setUserName(""), setEmail(""), setPassword("");
+    } else {
+      toast("Error! something went wrong");
+    }
   };
 
   return (
@@ -102,6 +109,17 @@ export default function SignUp() {
               sx={{ mt: 3, mb: 2 }}
               disabled={userName === "" || email === "" || password === ""}
               text="Sign up"
+            />
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
             />
           </Box>
         </Box>

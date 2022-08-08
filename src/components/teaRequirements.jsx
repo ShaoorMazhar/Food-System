@@ -5,10 +5,15 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import RadioButtonsGroup from "../components/radioButtonGroup";
 import TextField from "@mui/material/TextField";
+import { useSelector } from "react-redux";
 export default function TeaRequirements() {
   const [userName, setUserName] = useState("");
   const [sugarQuantity, setSugarQuantity] = useState("");
   const [teaVolume, setTeaVolume] = useState("half cup");
+  const user = useSelector((state) => {
+    return state?.signIn?.signIn[0]?.payload?.data?.user?.userName;
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserName("");
@@ -33,7 +38,7 @@ export default function TeaRequirements() {
         id="Username"
         label="User Name"
         variant="outlined"
-        value={userName}
+        value={user}
         sx={{ marginTop: "20px", width: "100%" }}
       />
       <TextField

@@ -1,10 +1,21 @@
 import { BASE_URL, NETWORK_ERROR } from "../constants/appConstants";
+import { ToastContainer, toast } from "react-toastify";
 
 function buildApiEndpoint(path) {
   const url = new URL(path, BASE_URL);
   return url.href;
 }
-
+<ToastContainer
+  position="top-center"
+  autoClose={5000}
+  hideProgressBar
+  newestOnTop={false}
+  closeOnClick
+  rtl={false}
+  pauseOnFocusLoss
+  draggable
+  pauseOnHover
+/>;
 export const request = async (
   path,
   method = "GET",
@@ -31,7 +42,7 @@ export const request = async (
     }
   } catch (err) {
     console.log(err);
-    alert(NETWORK_ERROR);
+    toast(NETWORK_ERROR);
     throw new Error(err);
   }
 };

@@ -1,5 +1,9 @@
 import React from "react";
-
+import DenseAppBar from "../components/denseAppBar";
 export default function AdminPortal() {
-  return <div>adminPortal</div>;
+  return (
+    <>
+      <DenseAppBar />
+    </>
+  );
 }

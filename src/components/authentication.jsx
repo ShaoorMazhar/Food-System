@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-export default function Protected(props) {
+export default function Authentication(props) {
   const { Component } = props;
   const navigate = useNavigate();
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      navigate("/");
+    if (!localStorage.getItem("email")) {
+      navigate("/adminLogin");
     } else {
-      navigate("/home");
+      navigate("/homeadminPortal");
     }
   }, []);
   return (

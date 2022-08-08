@@ -9,14 +9,20 @@ import { Link } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { Skeleton } from "@mui/material";
 import theme from "../theme";
+import { useNavigate } from "react-router-dom";
 
 export default function DenseAppBar() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 3000);
   }, []);
+  function logOut() {
+    localStorage.clear();
+    navigate("/");
+  }
   return (
     <ThemeProvider theme={theme}>
       {loading ? (
@@ -57,7 +63,9 @@ export default function DenseAppBar() {
                   </Link>
                 </Button>
 
-                <Button color="inherit">logout</Button>
+                <Button color="inherit" onClick={logOut}>
+                  logout
+                </Button>
               </Toolbar>
             </AppBar>
           </Box>
