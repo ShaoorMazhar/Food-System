@@ -23,7 +23,7 @@ export default function Home() {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "79.5vh",
+            height: "90vh",
             backgroundImage: `url(${background})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat"
@@ -80,14 +80,18 @@ export default function Home() {
                   <BasicModal
                     data={<LunchRequirement />}
                     background={lunch}
-                    src="https://picjumbo.com/wp-content/uploads/healthy-taco-with-place-for-text-free-photo-1080x720.jpg"
+                    src="https://t4.ftcdn.net/jpg/02/76/72/01/360_F_276720125_wVGmNFLvQNS1LCVdNxKNmmBUkJ26cVMO.jpg"
                   />
                 </Grid>
-                <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+                <Grid
+                  item
+                  sm={3}
+                  xs={12}
+                  sx={{ display: "flex", justifyContent: "center", marginLeft: "1%" }}>
                   <BasicModal
                     data={<TeaRequirements />}
                     background={evening}
-                    src="https://static.vecteezy.com/system/resources/previews/003/125/420/large_2x/electronic-pen-smartphone-book-coffee-mug-on-blue-background-free-photo.jpg"
+                    src="https://img.freepik.com/premium-photo/coffee-break-minimal-white-blue-background-template-with-cup-coffee-copy-space_197174-9.jpg?w=2000"
                   />
                 </Grid>
               </Grid>

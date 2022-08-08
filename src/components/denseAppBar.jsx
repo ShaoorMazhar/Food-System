@@ -5,10 +5,10 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { Skeleton } from "@mui/material";
 import theme from "../theme";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 
 export default function DenseAppBar() {
@@ -29,43 +29,39 @@ export default function DenseAppBar() {
         <Skeleton variant="rectangular" width="100%" height={150} animation="wave" />
       ) : (
         <>
-          <Grid
-            container
-            sx={{
-              backgroundColor: "secondary.main",
-              height: "90px",
-              paddingLeft: "13%",
-              display: "flex",
-              alignItems: "center"
-            }}>
-            <img
-              src="https://luminogics.com/wp-content/uploads/2021/11/Luminogics_original_notext.png"
-              alt="luminogics_logo"
-              width="65px"
-            />
-            <Typography variant="h6" component="div">
-              Luminogics
-            </Typography>
-          </Grid>
           <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-              <Toolbar>
-                <Button color="inherit" sx={{ paddingLeft: "12%  !important" }}>
-                  <Link
-                    style={{
-                      color: "#fafafa",
-                      textDecoration: "none",
-                      fontSize: "1rem",
-                      marginRight: "30px"
+            <AppBar position="static" className="appbar">
+              <Toolbar
+                style={{ paddingLeft: "6%", display: "flex", justifyContent: "space-between" }}>
+                <Grid item sx={{ display: "flex", alignItems: "center" }}>
+                  <img
+                    src="https://luminogics.com/wp-content/uploads/2021/11/Luminogics_original_notext.png"
+                    alt="luminogics_logo"
+                    width="55px"
+                  />
+                  <Typography
+                    component="div"
+                    sx={{
+                      color: "white",
+                      fontSize: "1.6rem",
+                      fontWeight: 600,
+                      marginLeft: "2%"
+                    }}>
+                    Luminogics
+                  </Typography>
+                </Grid>
+                <Grid item x={{ display: "flex", alignItems: "center" }}>
+                  <Button
+                    sx={{
+                      color: "white",
+                      fontSize: "1.2rem",
+                      fontWeight: "bolder",
+                      marginLeft: "10px"
                     }}
-                    to="/home">
-                    Home
-                  </Link>
-                </Button>
-
-                <Button color="inherit" onClick={logOut}>
-                  logout
-                </Button>
+                    onClick={logOut}>
+                    <LogoutIcon />
+                  </Button>
+                </Grid>
               </Toolbar>
             </AppBar>
           </Box>

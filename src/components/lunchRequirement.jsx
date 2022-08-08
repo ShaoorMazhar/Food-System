@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
@@ -30,54 +31,56 @@ export default function LunchRequirement() {
       <Typography id="modal-modal-title" variant="h5">
         Add lunch Details
       </Typography>
-      <Divider />
-      <TextField
-        onChange={(e) => {
-          setUserName(e.target.value);
-        }}
-        id="Username"
-        label="User Name"
-        variant="outlined"
-        value={user}
-        sx={{ marginTop: "20px", width: "100%" }}
-      />
-      <TextField
-        onChange={(e) => {
-          setAmount(e.target.value);
-        }}
-        type="number"
-        id="amount"
-        label="Amount Paid"
-        variant="outlined"
-        value={amount}
-        sx={{ marginTop: "20px", width: "100%" }}
-      />
-      <TextField
-        onChange={(e) => {
-          setRoti(e.target.value);
-        }}
-        type="number"
-        id="roti"
-        label="Roti"
-        variant="outlined"
-        value={roti}
-        sx={{ marginTop: "20px", width: "100%" }}
-      />
-      <TextField
-        onChange={(e) => {
-          setItemDescription(e.target.value);
-        }}
-        id="item_decsription"
-        label="Items(Description)"
-        variant="outlined"
-        value={itemDescription}
-        sx={{ marginTop: "20px", width: "100%" }}
-      />
+      <Grid item xs={12} md={8}>
+        <Divider />
+        <TextField
+          onChange={(e) => {
+            setUserName(e.target.value);
+          }}
+          id="Username"
+          label="User Name"
+          variant="outlined"
+          value={user}
+          sx={{ marginTop: "20px", width: "100%" }}
+        />
+        <TextField
+          onChange={(e) => {
+            setAmount(e.target.value);
+          }}
+          type="number"
+          id="amount"
+          label="Amount Paid"
+          variant="outlined"
+          value={amount}
+          sx={{ marginTop: "20px", width: "100%" }}
+        />
+        <TextField
+          onChange={(e) => {
+            setRoti(e.target.value);
+          }}
+          type="number"
+          id="roti"
+          label="Roti"
+          variant="outlined"
+          value={roti}
+          sx={{ marginTop: "20px", width: "100%" }}
+        />
+        <TextField
+          onChange={(e) => {
+            setItemDescription(e.target.value);
+          }}
+          id="item_decsription"
+          label="Items(Description)"
+          variant="outlined"
+          value={itemDescription}
+          sx={{ marginTop: "20px", width: "100%" }}
+        />
 
-      <ButtonGroup
-        disabled={userName === "" || itemDescription === "" || amount === "" || roti === ""}
-        onClick={handleSubmit}
-      />
+        <ButtonGroup
+          disabled={userName === "" || itemDescription === "" || amount === "" || roti === ""}
+          onClick={handleSubmit}
+        />
+      </Grid>
     </Box>
   );
 }

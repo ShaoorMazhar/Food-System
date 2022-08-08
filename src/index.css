@@ -31,6 +31,12 @@ code {
   }
 }
 
-.css-50occg-MuiButtonBase-root-MuiTab-root {
-  flex-grow: 1;
+.tabPannel {
+  flex-grow: 1 !important;
+}
+
+.appbar {
+  height: 75px !important;
+  display: "flex";
+  justify-content: center;
 }

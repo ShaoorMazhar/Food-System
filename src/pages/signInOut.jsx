@@ -42,8 +42,8 @@ export default function SignInOut() {
         <Grid item xs={10} sm={8} md={4}>
           <Paper elevation={20}>
             <Tabs value={value} onChange={handleChange} aria-label="disabled tabs example">
-              <Tab label="Sign In" />
-              <Tab label="Sign Up" />
+              <Tab label="Sign In" className="tabPannel" />
+              <Tab label="Sign Up" className="tabPannel" />
             </Tabs>
             <TabPanel value={value} index={0}>
               <SignIn handleChange={handleChange} />
