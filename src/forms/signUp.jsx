@@ -30,7 +30,6 @@ export default function SignUp() {
     };
     const userData = await signUp(newUser);
     dispatch(sign_up(userData));
-    console.log(userData, "ddd");
     if (userData?.metadata?.status === "SUCCESS") {
       toast("Sign Up Successfully!");
       setUserName(""), setEmail(""), setPassword("");
