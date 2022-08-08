@@ -23,6 +23,13 @@ export default function DenseAppBar() {
     localStorage.clear();
     navigate("/");
   }
+
+  // const time = () => {
+  //   const date = new Date();
+  //   const last = new Date(date.getTime());
+  //   console.log(last);
+  // };
+
   return (
     <ThemeProvider theme={theme}>
       {loading ? (
@@ -61,6 +68,16 @@ export default function DenseAppBar() {
                     onClick={logOut}>
                     <LogoutIcon />
                   </Button>
+                  {/* <Button
+                    sx={{
+                      color: "white",
+                      fontSize: "1.2rem",
+                      fontWeight: "bolder",
+                      marginLeft: "10px"
+                    }}
+                    onClick={time}>
+                    time
+                  </Button> */}
                 </Grid>
               </Toolbar>
             </AppBar>
