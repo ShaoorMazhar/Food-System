@@ -31,9 +31,11 @@ export default function SignIn({ handleChange }) {
     const userData = await signIn(newUser);
     dispatch(sign_In(userData));
     if (userData?.metadata?.status === "SUCCESS") {
+      setTimeout(() => {
+        navigate("/home");
+      }, 2000);
       toast(userData?.metadata?.message);
       localStorage.setItem("token", userData.payload.data.token);
-      navigate("/home");
     } else {
       toast(`User ${userData?.statusText}`);
     }

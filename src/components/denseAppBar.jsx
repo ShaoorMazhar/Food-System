@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function DenseAppBar() {
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -23,12 +24,6 @@ export default function DenseAppBar() {
     localStorage.clear();
     navigate("/");
   }
-
-  // const time = () => {
-  //   const date = new Date();
-  //   const last = new Date(date.getTime());
-  //   console.log(last);
-  // };
 
   return (
     <ThemeProvider theme={theme}>

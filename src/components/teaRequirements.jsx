@@ -15,7 +15,6 @@ export default function TeaRequirements() {
     console.log(state, "state");
     return state?.signIn?.signIn[0]?.payload?.data?.user?.userName;
   });
-  console.log(user, "user123");
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserName("");

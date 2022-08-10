@@ -8,11 +8,16 @@ import theme from "../theme";
 import morning from "../assets/morningTeaBtn.png";
 // import LunchRequirement from "../components/lunchRequirement";
 // import TeaRequirements from "../components/teaRequirements";
+import TeaData from "../components/teaData";
 import background from "../assets/image33.PNG";
 import waiter from "../assets/group1.png";
 import lunch from "../assets/lunchBtn.png";
 import evening from "../assets/eveningTeaBtn.png";
+import LunchData from "../components/lunchData";
 export default function AdminPortal() {
+  // const newTime = new Date().toLocaleTimeString();
+  // const [cTime, setCTime] = useState(newTime);
+
   return (
     <div>
       <DenseAppBar />
@@ -68,17 +73,29 @@ export default function AdminPortal() {
                     justifyContent: "center",
                     marginRight: "1%"
                   }}>
-                  <BasicModal data="" background={morning} />
+                  <BasicModal
+                    data={<TeaData heading="Morning Tea" />}
+                    background={morning}
+                    // disabled={newTime < "11:00:00 am" || newTime > "12:00:00 pm"}
+                  />
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-                  <BasicModal data="" background={lunch} />
+                  <BasicModal
+                    data={<LunchData />}
+                    background={lunch}
+                    // disabled={newTime < "12:00:00 PM" || newTime > "03:00:00 PM"}
+                  />
                 </Grid>
                 <Grid
                   item
                   sm={3}
                   xs={12}
                   sx={{ display: "flex", justifyContent: "center", marginLeft: "1%" }}>
-                  <BasicModal data="" background={evening} />
+                  <BasicModal
+                    data={<TeaData heading="Evening Tea" />}
+                    background={evening}
+                    // disabled={newTime < "03:00:00 PM" && newTime > "05:00:00 PM"}
+                  />
                 </Grid>
               </Grid>
             </Grid>

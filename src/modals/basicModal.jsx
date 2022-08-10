@@ -28,6 +28,7 @@ export default function BasicModal(props) {
       <ThemeProvider theme={theme}>
         <Button
           className="modalButton"
+          disabled={props.disabled}
           sx={{
             backgroundImage: `url(${props.background})`,
             backgroundSize: "cover",

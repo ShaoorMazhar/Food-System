@@ -13,6 +13,7 @@ import waiter from "../assets/image66.png";
 import lunch from "../assets/image4.png";
 import evening from "../assets/image3.png";
 export default function Home() {
+  // const newTime = new Date().toLocaleTimeString();
   return (
     <div>
       <DenseAppBar />
@@ -71,6 +72,7 @@ export default function Home() {
                     marginRight: "1%"
                   }}>
                   <BasicModal
+                    // disabled={newTime > "11:00:00 am" || newTime < "8:00:00 am"}
                     data={<TeaRequirements />}
                     background={morning}
                     src="https://img.freepik.com/premium-photo/coffee-break-minimal-white-blue-background-template-with-cup-coffee-copy-space_197174-9.jpg?w=2000"
@@ -78,6 +80,7 @@ export default function Home() {
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                   <BasicModal
+                    // disabled={newTime > "12:00:00 pm" || newTime < "10:00:00 am"}
                     data={<LunchRequirement />}
                     background={lunch}
                     src="https://t4.ftcdn.net/jpg/02/76/72/01/360_F_276720125_wVGmNFLvQNS1LCVdNxKNmmBUkJ26cVMO.jpg"
@@ -89,6 +92,7 @@ export default function Home() {
                   xs={12}
                   sx={{ display: "flex", justifyContent: "center", marginLeft: "1%" }}>
                   <BasicModal
+                    // disabled={newTime > "03:00:00 pm" || newTime < "02:00:00 pm"}
                     data={<TeaRequirements />}
                     background={evening}
                     src="https://img.freepik.com/premium-photo/coffee-break-minimal-white-blue-background-template-with-cup-coffee-copy-space_197174-9.jpg?w=2000"
