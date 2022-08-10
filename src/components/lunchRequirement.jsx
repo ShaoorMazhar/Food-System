@@ -11,7 +11,6 @@ export default function LunchRequirement() {
   const [roti, setRoti] = useState("");
   const [amount, setAmount] = useState("");
   const user = useSelector((state) => {
-    console.log(state, "sss");
     const name = state?.signIn?.signIn[0];
     return name ? name : "";
   });
