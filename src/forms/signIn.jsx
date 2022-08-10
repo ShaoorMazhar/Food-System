@@ -29,9 +29,8 @@ export default function SignIn({ handleChange }) {
       password: password
     };
     const userData = await signIn(newUser);
-    dispatch(sign_In(userData));
+    dispatch(sign_In(userData?.payload?.data?.user?.userName));
     if (userData?.metadata?.status === "SUCCESS") {
-      toast(userData?.metadata?.message);
       localStorage.setItem("token", userData.payload.data.token);
       navigate("/home");
     } else {
