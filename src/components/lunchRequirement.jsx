@@ -7,13 +7,13 @@ import TextField from "@mui/material/TextField";
 import ButtonGroup from "./buttonGroup";
 import { useSelector } from "react-redux";
 export default function LunchRequirement() {
-  const [userName, setUserName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [roti, setRoti] = useState("");
   const [amount, setAmount] = useState("");
   const user = useSelector((state) => {
     return state?.signIn?.signIn[0]?.payload?.data?.user?.userName;
   });
+  const [userName, setUserName] = useState(user);
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserName("");
@@ -40,7 +40,7 @@ export default function LunchRequirement() {
           id="Username"
           label="User Name"
           variant="outlined"
-          value={user}
+          value={userName}
           sx={{ marginTop: "20px", width: "100%" }}
         />
         <TextField
@@ -77,7 +77,7 @@ export default function LunchRequirement() {
         />
 
         <ButtonGroup
-          disabled={userName === "" || itemDescription === "" || amount === "" || roti === ""}
+          disabled={itemDescription === "" || amount === "" || roti === ""}
           onClick={handleSubmit}
         />
       </Grid>

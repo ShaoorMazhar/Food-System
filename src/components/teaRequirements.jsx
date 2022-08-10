@@ -8,13 +8,12 @@ import RadioButtonsGroup from "../components/radioButtonGroup";
 import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
 export default function TeaRequirements() {
-  const [userName, setUserName] = useState("");
   const [sugarQuantity, setSugarQuantity] = useState("");
   const [teaVolume, setTeaVolume] = useState("half cup");
   const user = useSelector((state) => {
-    console.log(state, "state");
     return state?.signIn?.signIn[0]?.payload?.data?.user?.userName;
   });
+  const [userName, setUserName] = useState(user);
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserName("");
@@ -40,7 +39,7 @@ export default function TeaRequirements() {
           id="Username"
           label="User Name"
           variant="outlined"
-          value={user}
+          value={userName}
           sx={{ marginTop: "20px", width: "100%" }}
         />
         <TextField
@@ -55,10 +54,7 @@ export default function TeaRequirements() {
           sx={{ marginTop: "20px", width: "100%" }}
         />
         <RadioButtonsGroup tea_volume={teaVolume} setTea_volume={setTeaVolume} />
-        <ButtonGroup
-          onClick={handleSubmit}
-          disabled={userName === "" || sugarQuantity === "" || teaVolume === ""}
-        />
+        <ButtonGroup onClick={handleSubmit} disabled={sugarQuantity === "" || teaVolume === ""} />
       </Grid>
     </Box>
   );
