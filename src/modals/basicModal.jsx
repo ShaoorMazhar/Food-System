@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
 import { ThemeProvider } from "@mui/material/styles";
-
+import { getEmployeeOrder, getAllOrders } from "../services/services";
+import { order_item } from "../redux/actions/action";
+import { order_record } from "../redux/actions/action";
 import theme from "../theme";
 
 const style = {
@@ -18,19 +21,52 @@ const style = {
   p: 4
 };
 
-export default function BasicModal(props) {
+export default function BasicModal({ disabled, type, background, src, data }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const [orderRecord, setOrderRecord] = useState("");
+  console.log("orderRecord", orderRecord);
+  const handleOpen = () => {
+    setOpen(true);
+    const callingApi = () => {
+      getEmployeeOrder(user.email, type)
+        .then((res) => {
+          dispatch(order_item(res?.data?.payload?.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      useDispatch;
+    };
+    callingApi();
+    const gettingOrders = () => {
+      getAllOrders(type)
+        .then((res) => {
+          setOrderRecord(res?.data?.payload?.data);
+          dispatch(order_record(res?.data?.payload?.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      useDispatch;
+    };
+    gettingOrders();
+  };
   const handleClose = () => setOpen(false);
+  const user = useSelector((state) => {
+    const name = state?.signIn?.signIn;
+    return name ? name : "";
+  });
 
   return (
     <div>
       <ThemeProvider theme={theme}>
         <Button
           className="modalButton"
-          disabled={props.disabled}
+          disabled={disabled}
+          type={type}
           sx={{
-            backgroundImage: `url(${props.background})`,
+            backgroundImage: `url(${background})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             color: "#fafafa",
@@ -54,12 +90,12 @@ export default function BasicModal(props) {
             sx={{
               ...style,
               width: "50vw",
-              backgroundImage: `url(${props.src})`,
+              backgroundImage: `url(${src})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat"
             }}>
-            {props.data}
+            {data}
           </Box>
         </Modal>
       </ThemeProvider>

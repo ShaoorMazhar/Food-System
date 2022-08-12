@@ -12,7 +12,7 @@ import theme from "../theme";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import Btn from "../components/button";
-import { signUp } from "../services/tableDataServices";
+import { signUp } from "../services/services";
 import { sign_up } from "../redux/actions/action";
 
 export default function SignUp() {

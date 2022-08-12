@@ -74,6 +74,7 @@ export default function AdminPortal() {
                     marginRight: "1%"
                   }}>
                   <BasicModal
+                    type="Morning-Tea"
                     data={<TeaData heading="Morning Tea" />}
                     background={morning}
                     // disabled={newTime < "11:00:00 am" || newTime > "12:00:00 pm"}
@@ -81,6 +82,7 @@ export default function AdminPortal() {
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                   <BasicModal
+                    type="Lunch"
                     data={<LunchData />}
                     background={lunch}
                     // disabled={newTime < "12:00:00 PM" || newTime > "03:00:00 PM"}
@@ -92,6 +94,7 @@ export default function AdminPortal() {
                   xs={12}
                   sx={{ display: "flex", justifyContent: "center", marginLeft: "1%" }}>
                   <BasicModal
+                    type="Evening-Tea"
                     data={<TeaData heading="Evening Tea" />}
                     background={evening}
                     // disabled={newTime < "03:00:00 PM" && newTime > "05:00:00 PM"}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import ButtonGroup from "./buttonGroup";
@@ -11,7 +11,9 @@ export default function LunchRequirement() {
   const [roti, setRoti] = useState("");
   const [amount, setAmount] = useState("");
   const user = useSelector((state) => {
-    return state?.signIn?.signIn[0]?.payload?.data?.user?.userName;
+    console.log(state, "state");
+    const name = state?.signIn?.signIn?.userName;
+    return name ? name : "";
   });
   const [userName, setUserName] = useState(user);
   const handleSubmit = (e) => {

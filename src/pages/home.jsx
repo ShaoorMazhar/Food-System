@@ -10,10 +10,19 @@ import LunchRequirement from "../components/lunchRequirement";
 import TeaRequirements from "../components/teaRequirements";
 import background from "../assets/image33.PNG";
 import waiter from "../assets/image66.png";
+import { useSelector } from "react-redux";
+import { morningTeaStart } from "../constants/appConstants";
+import { morningTeaEnd } from "../constants/appConstants";
 import lunch from "../assets/image4.png";
 import evening from "../assets/image3.png";
 export default function Home() {
-  // const newTime = new Date().toLocaleTimeString();
+  function inTime(start, end) {
+    var now = new Date();
+    var time = now.getHours() * 60 + now.getMinutes();
+    return time >= start && time < end;
+  }
+  const user = useSelector((state) => state?.order[0]);
+  // console.log("userabcd", user);
   return (
     <div>
       <DenseAppBar />
@@ -72,16 +81,18 @@ export default function Home() {
                     marginRight: "1%"
                   }}>
                   <BasicModal
-                    // disabled={newTime > "11:00:00 am" || newTime < "8:00:00 am"}
-                    data={<TeaRequirements />}
+                    disabled={inTime(morningTeaStart, morningTeaEnd)}
+                    type="Morning-Tea"
+                    data={<TeaRequirements text="Morning-Tea" />}
                     background={morning}
                     src="https://img.freepik.com/premium-photo/coffee-break-minimal-white-blue-background-template-with-cup-coffee-copy-space_197174-9.jpg?w=2000"
                   />
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                   <BasicModal
+                    type="Lunch"
                     // disabled={newTime > "12:00:00 pm" || newTime < "10:00:00 am"}
-                    data={<LunchRequirement />}
+                    data={<LunchRequirement text="Lunch" />}
                     background={lunch}
                     src="https://t4.ftcdn.net/jpg/02/76/72/01/360_F_276720125_wVGmNFLvQNS1LCVdNxKNmmBUkJ26cVMO.jpg"
                   />
@@ -92,8 +103,18 @@ export default function Home() {
                   xs={12}
                   sx={{ display: "flex", justifyContent: "center", marginLeft: "1%" }}>
                   <BasicModal
+                    type="Evening-Tea"
                     // disabled={newTime > "03:00:00 pm" || newTime < "02:00:00 pm"}
-                    data={<TeaRequirements />}
+                    data={
+                      <TeaRequirements
+                        text="Evening-Tea"
+                        order={{
+                          _id: user?._id,
+                          sugarQuantity: user?.sugerQuantity,
+                          teaVolume: user?.teaVolume
+                        }}
+                      />
+                    }
                     background={evening}
                     src="https://img.freepik.com/premium-photo/coffee-break-minimal-white-blue-background-template-with-cup-coffee-copy-space_197174-9.jpg?w=2000"
                   />

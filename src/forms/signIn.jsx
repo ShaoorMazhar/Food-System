@@ -11,11 +11,11 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
+import { toast, ToastContainer } from "react-toastify";
 import theme from "../theme";
 import { useDispatch } from "react-redux";
-import { signIn } from "../services/tableDataServices";
+import { signIn } from "../services/services";
 import { sign_In } from "../redux/actions/action";
-import { ToastContainer, toast } from "react-toastify";
 
 export default function SignIn({ handleChange }) {
   const [password, setPassword] = useState("");
@@ -29,15 +29,13 @@ export default function SignIn({ handleChange }) {
       password: password
     };
     const userData = await signIn(newUser);
-    dispatch(sign_In(userData));
-    if (userData?.metadata?.status === "SUCCESS") {
-      setTimeout(() => {
-        navigate("/home");
-      }, 2000);
-      toast(userData?.metadata?.message);
-      localStorage.setItem("token", userData.payload.data.token);
+    const { token = "", user = {} } = userData;
+    if (token) {
+      dispatch(sign_In(user));
+      localStorage.setItem("token", token);
+      navigate("/home");
     } else {
-      toast(`User ${userData?.statusText}`);
+      toast(`User Not Found`);
     }
     setEmail("");
     setPassword("");
@@ -105,18 +103,18 @@ export default function SignIn({ handleChange }) {
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
-            <ToastContainer
-              position="top-center"
-              autoClose={5000}
-              hideProgressBar
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
           </Box>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </Box>
       </Container>
     </ThemeProvider>
