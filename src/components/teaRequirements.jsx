@@ -9,10 +9,7 @@ import { useSelector } from "react-redux";
 export default function TeaRequirements() {
   const [sugarQuantity, setSugarQuantity] = useState("");
   const [teaVolume, setTeaVolume] = useState("half cup");
-  const user = useSelector((state) => {
-    const name = state?.signIn?.signIn?.userName;
-    return name ? name : "";
-  });
+  const user = useSelector((state) => state?.signIn?.signIn?.userName) || "";
   const [userName, setUserName] = useState(user);
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -9,10 +9,8 @@ export default function LunchRequirement() {
   const [itemDescription, setItemDescription] = useState("");
   const [roti, setRoti] = useState("");
   const [amount, setAmount] = useState("");
-  const user = useSelector((state) => {
-    const name = state?.signIn?.signIn?.userName;
-    return name ? name : "";
-  });
+  const user = useSelector((state) => state?.signIn?.signIn?.userName) || "";
+
   const [userName, setUserName] = useState(user);
   const handleSubmit = (e) => {
     e.preventDefault();
