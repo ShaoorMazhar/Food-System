@@ -5,10 +5,12 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import RadioButtonsGroup from "../components/radioButtonGroup";
 import TextField from "@mui/material/TextField";
+import { useSelector } from "react-redux";
 export default function TeaRequirements() {
-  const [userName, setUserName] = useState("");
   const [sugarQuantity, setSugarQuantity] = useState("");
   const [teaVolume, setTeaVolume] = useState("half cup");
+  const user = useSelector((state) => state?.signIn?.signIn?.userName) || "";
+  const [userName, setUserName] = useState(user);
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserName("");

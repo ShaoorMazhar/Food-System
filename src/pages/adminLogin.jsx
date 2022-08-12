@@ -22,7 +22,6 @@ export default function AdminLogin() {
     event.preventDefault();
     if (email === "faisal@luminogics.com" && password === "faisal22") {
       localStorage.setItem("email", "faisal@luminogics.com");
-      toast("Login Successfull!");
       navigate("/adminPortal");
     } else if (email !== "faisal@luminogics.com") {
       toast("Wrong Email Address");
@@ -109,7 +108,7 @@ export default function AdminLogin() {
                   />
                   <Grid container>
                     <Grid container justifyContent="flex-end">
-                      <Link href="/auth" variant="body1">
+                      <Link href="/" variant="body1">
                         {"Sigin as User"}
                       </Link>
                     </Grid>

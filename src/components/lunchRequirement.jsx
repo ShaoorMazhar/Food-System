@@ -4,11 +4,14 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
 import ButtonGroup from "./buttonGroup";
+import { useSelector } from "react-redux";
 export default function LunchRequirement() {
-  const [userName, setUserName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [roti, setRoti] = useState("");
   const [amount, setAmount] = useState("");
+  const user = useSelector((state) => state?.signIn?.signIn?.userName) || "";
+
+  const [userName, setUserName] = useState(user);
   const handleSubmit = (e) => {
     e.preventDefault();
     setUserName("");
@@ -71,7 +74,7 @@ export default function LunchRequirement() {
       />
 
       <ButtonGroup
-        disabled={userName === "" || itemDescription === "" || amount === "" || roti === ""}
+        disabled={itemDescription === "" || amount === "" || roti === ""}
         onClick={handleSubmit}
       />
     </Box>
