@@ -40,7 +40,7 @@ export const getEmployeeOrder = async (email, orderType) => {
       `https://lu-meal-stage.herokuapp.com/api/users/get-employee-order?email=${email}&orderType=${orderType}`
     );
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
@@ -52,12 +52,11 @@ export const editOrder = async (newOrder) => {
       setHeaders()
     );
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
 export const deleteOrder = async (id) => {
-  console.log(id, "id123");
   try {
     return await axios.post(
       `https://lu-meal-stage.herokuapp.com/api/users/delete-order/${id}`,
@@ -65,17 +64,16 @@ export const deleteOrder = async (id) => {
       setHeaders()
     );
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
 export const getAllOrders = async (orderType) => {
-  console.log(orderType, "Respone111");
   try {
     return await axios.get(
       `https://lu-meal-stage.herokuapp.com/api/admin/get-available-orders/${orderType}`
     );
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };

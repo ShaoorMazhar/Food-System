@@ -1,27 +1,72 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import TextField from "@mui/material/TextField";
-import ButtonGroup from "./buttonGroup";
-import { useSelector } from "react-redux";
-export default function LunchRequirement() {
+import Btn from "../components/button";
+import CheckIcon from "@mui/icons-material/Check";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { editOrder } from "../services/services";
+import { orderData, deleteOrder } from "../services/services";
+import { order_item } from "../redux/actions/action";
+import { useSelector, useDispatch } from "react-redux";
+
+export default function LunchRequirement({ text, order }) {
   const [itemDescription, setItemDescription] = useState("");
-  const [roti, setRoti] = useState("");
+  const [rotiQuantity, setRotiQuantity] = useState("");
   const [amount, setAmount] = useState("");
+
+  const dispatch = useDispatch();
   const user = useSelector((state) => {
-    console.log(state, "state");
-    const name = state?.signIn?.signIn?.userName;
+    const name = state?.signIn?.signIn;
     return name ? name : "";
   });
-  const [userName, setUserName] = useState(user);
-  const handleSubmit = (e) => {
+  const [userName, setUserName] = useState(user?.userName);
+  const oId = useSelector((state) => state?.order[0]);
+  useEffect(() => {
+    if (order) {
+      setItemDescription(order?.itemDescription);
+      setRotiQuantity(order?.rotiQuantity);
+      setAmount(order?.amount);
+    }
+  }, [order]);
+
+  const handleSubmit = async (e) => {
+    let date = new Date().toLocaleString("en-US", {
+      hourCycle: "h24"
+    });
+    date = date + "Z";
     e.preventDefault();
-    setUserName("");
-    setItemDescription("");
-    setRoti("");
-    setAmount("");
+    const newOrder = {
+      email: user?.email,
+      employeeName: user?.userName,
+      extras: itemDescription,
+      rotiQuantity: rotiQuantity,
+      amount: amount,
+      orderDate: date,
+      orderType: text
+    };
+    await orderData(newOrder);
+  };
+
+  const handleEditOrder = async (e) => {
+    e.preventDefault();
+    const newOrder = {
+      _id: oId?._id,
+      extras: itemDescription,
+      rotiQuantity: rotiQuantity,
+      amount: amount
+    };
+    const order = await editOrder(newOrder);
+    dispatch(order_item(order));
+  };
+
+  const handleDeleteOrder = async (e) => {
+    e.preventDefault();
+    const order = await deleteOrder(oId?._id);
+    dispatch(order_item(order));
   };
   return (
     <Box
@@ -58,13 +103,13 @@ export default function LunchRequirement() {
         />
         <TextField
           onChange={(e) => {
-            setRoti(e.target.value);
+            setRotiQuantity(e.target.value);
           }}
           type="number"
           id="roti"
           label="Roti"
           variant="outlined"
-          value={roti}
+          value={rotiQuantity}
           sx={{ marginTop: "20px", width: "100%" }}
         />
         <TextField
@@ -78,10 +123,32 @@ export default function LunchRequirement() {
           sx={{ marginTop: "20px", width: "100%" }}
         />
 
-        <ButtonGroup
-          disabled={itemDescription === "" || amount === "" || roti === ""}
-          onClick={handleSubmit}
-        />
+        <Grid container sx={{ justifyContent: "space-around", marginTop: "25px" }}>
+          <Grid item xs={12} lg={5}></Grid>
+          <Grid item xs={12} md={3} lg={2}>
+            <Btn
+              color="error"
+              text="Delete"
+              onClick={handleDeleteOrder}
+              variant="contained"
+              endIcon={<DeleteIcon />}
+            />
+          </Grid>
+          <Grid item xs={12} md={3} lg={2}>
+            <Btn text="Edit" variant="contained" endIcon={<EditIcon />} onClick={handleEditOrder} />
+          </Grid>
+          <Grid item xs={12} md={3} lg={2}>
+            <Btn
+              disabled={
+                userName === "" || rotiQuantity === "" || itemDescription === "" || amount === ""
+              }
+              text="Order"
+              onClick={handleSubmit}
+              variant="contained"
+              endIcon={<CheckIcon />}
+            />
+          </Grid>
+        </Grid>
       </Grid>
     </Box>
   );

@@ -5,7 +5,7 @@ export const sign_up = (text) => async (dispatch) => {
       payload: text
     });
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
 
@@ -16,7 +16,7 @@ export const sign_In = (text) => async (dispatch) => {
       payload: text
     });
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
 
@@ -27,7 +27,7 @@ export const order_item = (text) => async (dispatch) => {
       payload: text
     });
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };
 
@@ -38,6 +38,6 @@ export const order_record = (text) => async (dispatch) => {
       payload: text
     });
   } catch (err) {
-    console.log(err);
+    return err;
   }
 };

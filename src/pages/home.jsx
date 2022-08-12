@@ -22,7 +22,7 @@ export default function Home() {
     return time >= start && time < end;
   }
   const user = useSelector((state) => state?.order[0]);
-  // console.log("userabcd", user);
+
   return (
     <div>
       <DenseAppBar />
@@ -83,7 +83,16 @@ export default function Home() {
                   <BasicModal
                     disabled={inTime(morningTeaStart, morningTeaEnd)}
                     type="Morning-Tea"
-                    data={<TeaRequirements text="Morning-Tea" />}
+                    data={
+                      <TeaRequirements
+                        text="Morning-Tea"
+                        order={{
+                          _id: user?._id,
+                          sugarQuantity: user?.sugerQuantity,
+                          teaVolume: user?.teaVolume
+                        }}
+                      />
+                    }
                     background={morning}
                     src="https://img.freepik.com/premium-photo/coffee-break-minimal-white-blue-background-template-with-cup-coffee-copy-space_197174-9.jpg?w=2000"
                   />
@@ -91,8 +100,17 @@ export default function Home() {
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                   <BasicModal
                     type="Lunch"
-                    // disabled={newTime > "12:00:00 pm" || newTime < "10:00:00 am"}
-                    data={<LunchRequirement text="Lunch" />}
+                    data={
+                      <LunchRequirement
+                        text="Lunch"
+                        order={{
+                          _id: user?._id,
+                          itemDescription: user?.extras,
+                          rotiQuantity: user?.rotiQuantity,
+                          amount: user?.amount
+                        }}
+                      />
+                    }
                     background={lunch}
                     src="https://t4.ftcdn.net/jpg/02/76/72/01/360_F_276720125_wVGmNFLvQNS1LCVdNxKNmmBUkJ26cVMO.jpg"
                   />
@@ -104,7 +122,6 @@ export default function Home() {
                   sx={{ display: "flex", justifyContent: "center", marginLeft: "1%" }}>
                   <BasicModal
                     type="Evening-Tea"
-                    // disabled={newTime > "03:00:00 pm" || newTime < "02:00:00 pm"}
                     data={
                       <TeaRequirements
                         text="Evening-Tea"

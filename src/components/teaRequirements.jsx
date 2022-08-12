@@ -19,41 +19,23 @@ export default function TeaRequirements({ text, order }) {
   const [teaVolume, setTeaVolume] = useState("half");
   const dispatch = useDispatch();
   const user = useSelector((state) => {
-    console.log(state, "state");
     const name = state?.signIn?.signIn;
     return name ? name : "";
   });
+
+  const [userName, setUserName] = useState(user?.userName);
   const oId = useSelector((state) => state?.order[0]);
-  console.log("aksjdaskdj", oId);
   useEffect(() => {
     if (order) {
       setSugarQuantity(order?.sugarQuantity);
       setTeaVolume(order?.teaVolume);
     }
   }, [order]);
-  const [userName, setUserName] = useState(user?.userName);
-  const handleEditOrder = async (e) => {
-    e.preventDefault();
-    const newOrder = {
-      _id: oId?._id,
-      sugerQuantity: sugarQuantity,
-      teaVolume: teaVolume
-    };
-    const order = await editOrder(newOrder);
-    dispatch(order_item(order));
-  };
-  const handleDeleteOrder = async (e) => {
-    e.preventDefault();
 
-    const order = await deleteOrder(oId?._id);
-    dispatch(order_item(order));
-    console.log(order);
-  };
   const handleSubmit = async (e) => {
-    let date = "2022-08-11T12:00:00";
-    //  new Date().toLocaleString("en-US", {
-    //   hourCycle: "h24"
-    // });
+    let date = new Date().toLocaleString("en-US", {
+      hourCycle: "h24"
+    });
     date = date + "Z";
     e.preventDefault();
     const newOrder = {
@@ -64,11 +46,25 @@ export default function TeaRequirements({ text, order }) {
       orderDate: date,
       orderType: text
     };
-
-    const order = await orderData(newOrder);
-    console.log(order, "order");
+    await orderData(newOrder);
   };
 
+  const handleEditOrder = async (e) => {
+    e.preventDefault();
+    const newOrder = {
+      _id: oId?._id,
+      sugerQuantity: sugarQuantity,
+      teaVolume: teaVolume
+    };
+    const order = await editOrder(newOrder);
+    dispatch(order_item(order));
+  };
+
+  const handleDeleteOrder = async (e) => {
+    e.preventDefault();
+    const order = await deleteOrder(oId?._id);
+    dispatch(order_item(order));
+  };
   return (
     <Box
       component="form"

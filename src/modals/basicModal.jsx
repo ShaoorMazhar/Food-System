@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,8 +24,7 @@ const style = {
 export default function BasicModal({ disabled, type, background, src, data }) {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const [orderRecord, setOrderRecord] = useState("");
-  console.log("orderRecord", orderRecord);
+
   const handleOpen = () => {
     setOpen(true);
     const callingApi = () => {
@@ -42,7 +41,6 @@ export default function BasicModal({ disabled, type, background, src, data }) {
     const gettingOrders = () => {
       getAllOrders(type)
         .then((res) => {
-          setOrderRecord(res?.data?.payload?.data);
           dispatch(order_record(res?.data?.payload?.data));
         })
         .catch((err) => {

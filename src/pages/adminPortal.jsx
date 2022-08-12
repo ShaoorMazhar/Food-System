@@ -6,8 +6,6 @@ import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import morning from "../assets/morningTeaBtn.png";
-// import LunchRequirement from "../components/lunchRequirement";
-// import TeaRequirements from "../components/teaRequirements";
 import TeaData from "../components/teaData";
 import background from "../assets/image33.PNG";
 import waiter from "../assets/group1.png";
@@ -15,9 +13,6 @@ import lunch from "../assets/lunchBtn.png";
 import evening from "../assets/eveningTeaBtn.png";
 import LunchData from "../components/lunchData";
 export default function AdminPortal() {
-  // const newTime = new Date().toLocaleTimeString();
-  // const [cTime, setCTime] = useState(newTime);
-
   return (
     <div>
       <DenseAppBar />
@@ -77,16 +72,10 @@ export default function AdminPortal() {
                     type="Morning-Tea"
                     data={<TeaData heading="Morning Tea" />}
                     background={morning}
-                    // disabled={newTime < "11:00:00 am" || newTime > "12:00:00 pm"}
                   />
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-                  <BasicModal
-                    type="Lunch"
-                    data={<LunchData />}
-                    background={lunch}
-                    // disabled={newTime < "12:00:00 PM" || newTime > "03:00:00 PM"}
-                  />
+                  <BasicModal type="Lunch" data={<LunchData />} background={lunch} />
                 </Grid>
                 <Grid
                   item
@@ -97,7 +86,6 @@ export default function AdminPortal() {
                     type="Evening-Tea"
                     data={<TeaData heading="Evening Tea" />}
                     background={evening}
-                    // disabled={newTime < "03:00:00 PM" && newTime > "05:00:00 PM"}
                   />
                 </Grid>
               </Grid>

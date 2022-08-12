@@ -8,8 +8,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
-
-// import { getTableData } from "../services/tableDataServices";
 import { v4 as uuidv4 } from "uuid";
 
 const columns = [
@@ -45,8 +43,6 @@ const columns = [
 
 export default function TeaData({ heading }) {
   const result = useSelector((state) => state?.record?.record[0]);
-  console.log(result, "resultyyy");
-
   const modifiedRows = result.map((element, index) => {
     return {
       ...element,
