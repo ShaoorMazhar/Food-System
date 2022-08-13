@@ -7,9 +7,8 @@ import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import Typography from "@mui/material/Typography";
-
-// import { getTableData } from "../services/tableDataServices";
-// import { v4 as uuidv4 } from "uuid";
+import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 const columns = [
   {
@@ -50,24 +49,17 @@ const columns = [
 ];
 
 export default function LunchData() {
-  //   const [data, setData] = useState([]);
-  //   const fetchData = async () => {
-  //     const DataApi = await getTableData();
-
-  //     setData(DataApi);
-  //   };
-  //   useEffect(() => {
-  //     fetchData();
-  //   }, []);
-
-  //   const modifiedRows = data.map((element, index) => {
-  //     return {
-  //       ...element,
-  //       name: element.name,
-  //       index: index+1,
-  //       categories: element.categories
-  //     };
-  //   });
+  const result = useSelector((state) => state?.lunch?.record[0]);
+  var modifiedRows = result?.map((element, index) => {
+    return {
+      ...element,
+      userName: element?.employeeName,
+      index: index,
+      items: element?.extras,
+      roti: element?.rotiQuantity,
+      amountPaid: element?.amount
+    };
+  });
   return (
     <ThemeProvider theme={theme}>
       <Card
@@ -97,12 +89,12 @@ export default function LunchData() {
             }}>
             <div style={{ height: 400, width: "100%" }}>
               <DataGrid
-                // key={(row) => (row.id = uuidv4())}
-                rows=""
+                key={(row) => (row.id = uuidv4())}
+                rows={modifiedRows}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
-                // getRowId={(row) => (row.id = uuidv4())}
+                getRowId={(row) => (row.id = uuidv4())}
               />
             </div>
           </Box>

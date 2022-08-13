@@ -41,17 +41,30 @@ const columns = [
   }
 ];
 
-export default function TeaData({ heading }) {
-  const result = useSelector((state) => state?.record?.record[0]);
-  const modifiedRows = result.map((element, index) => {
-    return {
-      ...element,
-      userName: element.employeeName,
-      index: index,
-      teaVolume: element.teaVolume,
-      sugarQuantity: element.sugerQuantity
-    };
-  });
+export default function TeaData({ heading, type }) {
+  if (type === "Morning-Tea") {
+    const result = useSelector((state) => state?.record?.record[0]);
+    var modifiedRows = result?.map((element, index) => {
+      return {
+        ...element,
+        userName: element?.employeeName,
+        index: index,
+        teaVolume: element?.teaVolume,
+        sugarQuantity: element?.sugerQuantity
+      };
+    });
+  } else if (type === "Evening-Tea") {
+    const result = useSelector((state) => state?.evening?.record[0]);
+    modifiedRows = result?.map((element, index) => {
+      return {
+        ...element,
+        userName: element?.employeeName,
+        index: index,
+        teaVolume: element?.teaVolume,
+        sugarQuantity: element?.sugerQuantity
+      };
+    });
+  }
   return (
     <ThemeProvider theme={theme}>
       <Card

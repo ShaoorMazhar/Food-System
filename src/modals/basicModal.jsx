@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
 import { ThemeProvider } from "@mui/material/styles";
 import { getEmployeeOrder, getAllOrders } from "../services/services";
-import { order_item } from "../redux/actions/action";
-import { order_record } from "../redux/actions/action";
+import { order_item, lunchOrderItem, eveningOrderItem } from "../redux/actions/action";
+import { order_record, lunch_record, evening_record } from "../redux/actions/action";
 import theme from "../theme";
 
 const style = {
@@ -24,16 +24,23 @@ const style = {
 export default function BasicModal({ disabled, type, background, src, data }) {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
     const callingApi = () => {
       getEmployeeOrder(user.email, type)
         .then((res) => {
-          dispatch(order_item(res?.data?.payload?.data));
+          if (type === "Morning-Tea") {
+            dispatch(order_item(res?.data?.payload?.data));
+          } else if (type === "Lunch") {
+            dispatch(lunchOrderItem(res?.data?.payload?.data));
+          } else if (type === "Evening-Tea") {
+            dispatch(eveningOrderItem(res?.data?.payload?.data));
+          }
         })
         .catch((err) => {
-          console.log(err);
+          return err;
         });
       useDispatch;
     };
@@ -41,10 +48,19 @@ export default function BasicModal({ disabled, type, background, src, data }) {
     const gettingOrders = () => {
       getAllOrders(type)
         .then((res) => {
-          dispatch(order_record(res?.data?.payload?.data));
+          if (type === "Morning-Tea") {
+            dispatch(order_record(res?.data?.payload?.data));
+            setOpenModal(true);
+          } else if (type === "Lunch") {
+            dispatch(lunch_record(res?.data?.payload?.data));
+            setOpenModal(true);
+          } else if (type === "Evening-Tea") {
+            dispatch(evening_record(res?.data?.payload?.data));
+            setOpenModal(true);
+          }
         })
         .catch((err) => {
-          console.log(err);
+          return err;
         });
       useDispatch;
     };
@@ -78,24 +94,25 @@ export default function BasicModal({ disabled, type, background, src, data }) {
           }}
           onClick={handleOpen}
         />
-
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
-          <Box
-            sx={{
-              ...style,
-              width: "50vw",
-              backgroundImage: `url(${src})`,
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat"
-            }}>
-            {data}
-          </Box>
-        </Modal>
+        {openModal && (
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description">
+            <Box
+              sx={{
+                ...style,
+                width: "50vw",
+                backgroundImage: `url(${src})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat"
+              }}>
+              {data}
+            </Box>
+          </Modal>
+        )}
       </ThemeProvider>
     </div>
   );

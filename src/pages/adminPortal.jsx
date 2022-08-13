@@ -70,12 +70,12 @@ export default function AdminPortal() {
                   }}>
                   <BasicModal
                     type="Morning-Tea"
-                    data={<TeaData heading="Morning Tea" />}
+                    data={<TeaData heading="Morning Tea" type="Morning-Tea" />}
                     background={morning}
                   />
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-                  <BasicModal type="Lunch" data={<LunchData />} background={lunch} />
+                  <BasicModal type="Lunch" data={<LunchData type="Lunch" />} background={lunch} />
                 </Grid>
                 <Grid
                   item
@@ -84,7 +84,7 @@ export default function AdminPortal() {
                   sx={{ display: "flex", justifyContent: "center", marginLeft: "1%" }}>
                   <BasicModal
                     type="Evening-Tea"
-                    data={<TeaData heading="Evening Tea" />}
+                    data={<TeaData heading="Evening Tea" type="Evening-Tea" />}
                     background={evening}
                   />
                 </Grid>

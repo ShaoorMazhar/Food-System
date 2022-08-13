@@ -22,6 +22,8 @@ export default function Home() {
     return time >= start && time < end;
   }
   const user = useSelector((state) => state?.order[0]);
+  const lunchh = useSelector((state) => state?.lunchOrder[0]);
+  const tea = useSelector((state) => state?.eveningOrder[0]);
 
   return (
     <div>
@@ -104,10 +106,10 @@ export default function Home() {
                       <LunchRequirement
                         text="Lunch"
                         order={{
-                          _id: user?._id,
-                          itemDescription: user?.extras,
-                          rotiQuantity: user?.rotiQuantity,
-                          amount: user?.amount
+                          _id: lunchh?._id,
+                          itemDescription: lunchh?.extras,
+                          rotiQuantity: lunchh?.rotiQuantity,
+                          amount: lunchh?.amount
                         }}
                       />
                     }
@@ -126,9 +128,9 @@ export default function Home() {
                       <TeaRequirements
                         text="Evening-Tea"
                         order={{
-                          _id: user?._id,
-                          sugarQuantity: user?.sugerQuantity,
-                          teaVolume: user?.teaVolume
+                          _id: tea?._id,
+                          sugarQuantity: tea?.sugerQuantity,
+                          teaVolume: tea?.teaVolume
                         }}
                       />
                     }

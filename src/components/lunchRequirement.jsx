@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { editOrder } from "../services/services";
 import { orderData, deleteOrder } from "../services/services";
-import { order_item } from "../redux/actions/action";
+import { lunchOrderItem, lunchOrderDelete } from "../redux/actions/action";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function LunchRequirement({ text, order }) {
@@ -24,7 +24,8 @@ export default function LunchRequirement({ text, order }) {
     return name ? name : "";
   });
   const [userName, setUserName] = useState(user?.userName);
-  const oId = useSelector((state) => state?.order[0]);
+  const oId = useSelector((state) => state?.lunchOrder[0]);
+
   useEffect(() => {
     if (order) {
       setItemDescription(order?.itemDescription);
@@ -34,9 +35,10 @@ export default function LunchRequirement({ text, order }) {
   }, [order]);
 
   const handleSubmit = async (e) => {
-    let date = new Date().toLocaleString("en-US", {
-      hourCycle: "h24"
-    });
+    let date = "2022-08-12T12:00:00";
+    // let date = new Date().toLocaleString("en-US", {
+    //   hourCycle: "h24"
+    // });
     date = date + "Z";
     e.preventDefault();
     const newOrder = {
@@ -60,13 +62,13 @@ export default function LunchRequirement({ text, order }) {
       amount: amount
     };
     const order = await editOrder(newOrder);
-    dispatch(order_item(order));
+    dispatch(lunchOrderItem(order));
   };
 
   const handleDeleteOrder = async (e) => {
     e.preventDefault();
     const order = await deleteOrder(oId?._id);
-    dispatch(order_item(order));
+    dispatch(lunchOrderDelete(order));
   };
   return (
     <Box

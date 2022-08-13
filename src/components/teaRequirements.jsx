@@ -9,14 +9,19 @@ import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import RadioButtonsGroup from "../components/radioButtonGroup";
 import { orderData, deleteOrder } from "../services/services";
-import { order_item } from "../redux/actions/action";
+import {
+  order_item,
+  order_delete,
+  eveningOrderDelete,
+  eveningOrderItem
+} from "../redux/actions/action";
 import { useDispatch } from "react-redux";
 import TextField from "@mui/material/TextField";
 import { editOrder } from "../services/services";
 import { useSelector } from "react-redux";
 export default function TeaRequirements({ text, order }) {
   const [sugarQuantity, setSugarQuantity] = useState("");
-  const [teaVolume, setTeaVolume] = useState("half");
+  const [teaVolume, setTeaVolume] = useState("Half cup");
   const dispatch = useDispatch();
   const user = useSelector((state) => {
     const name = state?.signIn?.signIn;
@@ -25,6 +30,7 @@ export default function TeaRequirements({ text, order }) {
 
   const [userName, setUserName] = useState(user?.userName);
   const oId = useSelector((state) => state?.order[0]);
+  const orderId = useSelector((state) => state?.eveningOrder[0]);
   useEffect(() => {
     if (order) {
       setSugarQuantity(order?.sugarQuantity);
@@ -33,10 +39,11 @@ export default function TeaRequirements({ text, order }) {
   }, [order]);
 
   const handleSubmit = async (e) => {
-    let date = new Date().toLocaleString("en-US", {
-      hourCycle: "h24"
-    });
-    date = date + "Z";
+    let date = "2022-08-12T09:00:00";
+    // let date = new Date().toLocaleString("en-US", {
+    //   hourCycle: "h24"
+    // });
+    // date = date + "Z";
     e.preventDefault();
     const newOrder = {
       email: user?.email,
@@ -51,19 +58,37 @@ export default function TeaRequirements({ text, order }) {
 
   const handleEditOrder = async (e) => {
     e.preventDefault();
-    const newOrder = {
-      _id: oId?._id,
-      sugerQuantity: sugarQuantity,
-      teaVolume: teaVolume
-    };
-    const order = await editOrder(newOrder);
-    dispatch(order_item(order));
+
+    if (text === "Morning-Tea") {
+      const newOrder = {
+        _id: oId?._id,
+        sugerQuantity: sugarQuantity,
+        teaVolume: teaVolume
+      };
+      const order = await editOrder(newOrder);
+      dispatch(order_item(order));
+    } else if (text === "Evening-Tea") {
+      const newOrder = {
+        _id: orderId?._id,
+        sugerQuantity: sugarQuantity,
+        teaVolume: teaVolume
+      };
+      const order = await editOrder(newOrder);
+      dispatch(eveningOrderItem(order));
+    }
   };
 
   const handleDeleteOrder = async (e) => {
     e.preventDefault();
-    const order = await deleteOrder(oId?._id);
-    dispatch(order_item(order));
+    if (text === "Morning-Tea") {
+      const order = await deleteOrder(oId?._id);
+      dispatch(order_delete(order, oId?._id));
+    } else if (text === "Evening-Tea") {
+      const order = await deleteOrder(orderId?._id);
+      dispatch(eveningOrderDelete(order, orderId?._id));
+    }
+    setSugarQuantity("");
+    setTeaVolume("Half cup");
   };
   return (
     <Box
