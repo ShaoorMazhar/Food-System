@@ -11,7 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { editOrder } from "../services/services";
 import { ToastContainer, toast } from "react-toastify";
 import { orderData, deleteOrder } from "../services/services";
-import { lunchOrderItem, lunchOrderDelete } from "../redux/actions/action";
+import { lunchOrderItem } from "../redux/actions/action";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function LunchRequirement({ text, order }) {
@@ -36,11 +36,11 @@ export default function LunchRequirement({ text, order }) {
   }, [order]);
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     let date = new Date().toLocaleString("en-US", {
       hourCycle: "h24"
     });
     date = date + "Z";
-    e.preventDefault();
     const newOrder = {
       email: user?.email,
       employeeName: user?.userName,
@@ -68,7 +68,7 @@ export default function LunchRequirement({ text, order }) {
     };
     const order = await editOrder(newOrder);
     if (order?.status === 200) {
-      toast("Order updated Successfully!");
+      toast(order?.data?.metadata?.message);
     } else {
       toast(order?.response?.data?.metadata?.message);
     }
@@ -79,11 +79,11 @@ export default function LunchRequirement({ text, order }) {
     e.preventDefault();
     const order = await deleteOrder(oId?._id);
     if (order?.status === 200) {
-      toast("Order Deleted Successfully!");
+      toast(order?.data?.metadata?.message);
     } else {
       toast(order?.response?.data?.metadata?.message);
     }
-    dispatch(lunchOrderDelete(order));
+    dispatch(lunchOrderItem(order));
   };
   return (
     <Box

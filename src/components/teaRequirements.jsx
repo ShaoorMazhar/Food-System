@@ -10,19 +10,14 @@ import { ToastContainer, toast } from "react-toastify";
 import Divider from "@mui/material/Divider";
 import RadioButtonsGroup from "../components/radioButtonGroup";
 import { orderData, deleteOrder } from "../services/services";
-import {
-  order_item,
-  order_delete,
-  eveningOrderDelete,
-  eveningOrderItem
-} from "../redux/actions/action";
+import { order_item, eveningOrderItem } from "../redux/actions/action";
 import { useDispatch } from "react-redux";
 import TextField from "@mui/material/TextField";
 import { editOrder } from "../services/services";
 import { useSelector } from "react-redux";
 export default function TeaRequirements({ text, order }) {
   const [sugarQuantity, setSugarQuantity] = useState("");
-  const [quantityError, setQuantityError] = useState(false);
+
   const [teaVolume, setTeaVolume] = useState("");
   const dispatch = useDispatch();
   const user = useSelector((state) => {
@@ -41,14 +36,13 @@ export default function TeaRequirements({ text, order }) {
   }, [order]);
 
   const handleSubmit = async (e) => {
-    if (sugarQuantity === "") {
-      setQuantityError(true);
-    }
+    e.preventDefault();
+
     let date = new Date().toLocaleString("en-US", {
       hourCycle: "h24"
     });
     date = date + "Z";
-    e.preventDefault();
+
     const newOrder = {
       email: user?.email,
       employeeName: user?.userName,
@@ -65,8 +59,6 @@ export default function TeaRequirements({ text, order }) {
     } else {
       toast(result?.response?.data?.metadata?.message);
     }
-
-    setQuantityError(false);
   };
 
   const handleEditOrder = async (e) => {
@@ -81,15 +73,13 @@ export default function TeaRequirements({ text, order }) {
       const order = await editOrder(newOrder);
 
       if (order?.status === 200) {
-        toast("Order updated Successfully!");
+        toast(order?.data?.metadata?.message);
         setSugarQuantity("");
         setTeaVolume("");
       } else {
         toast(order?.response?.data?.metadata?.message);
       }
       dispatch(order_item(order));
-
-      setQuantityError(false);
     } else if (text === "Evening-Tea") {
       const newOrder = {
         _id: orderId?._id,
@@ -98,7 +88,7 @@ export default function TeaRequirements({ text, order }) {
       };
       const order = await editOrder(newOrder);
       if (order?.status === 200) {
-        toast("Order updated Successfully!");
+        toast(order?.data?.metadata?.message);
         setSugarQuantity("");
         setTeaVolume("");
       } else {
@@ -106,32 +96,33 @@ export default function TeaRequirements({ text, order }) {
       }
       dispatch(eveningOrderItem(order));
     }
-    setQuantityError(false);
   };
 
   const handleDeleteOrder = async (e) => {
     e.preventDefault();
     if (text === "Morning-Tea") {
       const order = await deleteOrder(oId?._id);
+      console.log(order);
       if (order?.status === 200) {
-        toast("Order Deleted Successfully!");
+        toast(order?.data?.metadata?.message);
+
         setSugarQuantity("");
         setTeaVolume("");
       } else {
         toast(order?.response?.data?.metadata?.message);
       }
-      dispatch(order_delete(order, oId?._id));
+      dispatch(order_item(order));
     } else if (text === "Evening-Tea") {
       const order = await deleteOrder(orderId?._id);
       if (order?.status === 200) {
-        toast("Order Deleted Successfully!");
+        toast(order?.data?.metadata?.message);
         setSugarQuantity("");
         setTeaVolume("");
       } else {
         toast(order?.response?.data?.metadata?.message);
       }
 
-      dispatch(eveningOrderDelete(order, orderId?._id));
+      dispatch(eveningOrderItem(order));
     }
   };
   return (
@@ -164,7 +155,6 @@ export default function TeaRequirements({ text, order }) {
           id="suger_quantity"
           label="Sugar Quantity(spoon)"
           variant="outlined"
-          error={quantityError}
           value={sugarQuantity}
           sx={{ marginTop: "20px", width: "100%" }}
         />

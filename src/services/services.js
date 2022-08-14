@@ -1,15 +1,6 @@
 import { request, setHeaders } from "./common";
 import axios from "axios";
 
-// export const signUp = async (body) => {
-//   try {
-//     const response = await request("/api/users/sign-up", "POST", body);
-//     return response;
-//   } catch (e) {
-//     return e;
-//   }
-// };
-
 export const signUp = async (payload) => {
   try {
     return await axios.post("https://lu-meal-stage.herokuapp.com/api/users/sign-up", payload);
