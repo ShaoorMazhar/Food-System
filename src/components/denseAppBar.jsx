@@ -8,6 +8,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 import { useNavigate } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function DenseAppBar() {
   const navigate = useNavigate();
@@ -41,16 +42,18 @@ export default function DenseAppBar() {
                 </Typography>
               </Grid>
               <Grid item x={{ display: "flex", alignItems: "center" }}>
-                <Button
-                  sx={{
-                    color: "white",
-                    fontSize: "1.2rem",
-                    fontWeight: "bolder",
-                    marginLeft: "10px"
-                  }}
-                  onClick={logOut}>
-                  <LogoutIcon />
-                </Button>
+                <Tooltip title="Logout Data" placement="bottom" backgroundcolor="white" arrow>
+                  <Button
+                    sx={{
+                      color: "white",
+                      fontSize: "1.2rem",
+                      fontWeight: "bolder",
+                      marginLeft: "10px"
+                    }}
+                    onClick={logOut}>
+                    <LogoutIcon />
+                  </Button>
+                </Tooltip>
               </Grid>
             </Toolbar>
           </AppBar>

@@ -13,13 +13,16 @@ import { useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+
 import { ToastContainer, toast } from "react-toastify";
 export default function AdminLogin() {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
     if (email === "faisal@luminogics.com" && password === "faisal22") {
       localStorage.setItem("email", "faisal@luminogics.com");
       navigate("/adminPortal");
@@ -30,6 +33,7 @@ export default function AdminLogin() {
     } else {
       toast("Wrong Email and password!");
     }
+    setLoading(false);
   };
 
   return (
@@ -94,6 +98,7 @@ export default function AdminLogin() {
                     variant="contained"
                     text="Sign In"
                     disabled={email === "" || password === ""}
+                    loading={loading}
                   />
                   <ToastContainer
                     position="top-center"

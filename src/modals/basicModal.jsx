@@ -103,7 +103,7 @@ export default function BasicModal({ disabled, type, background, src, data }) {
             <Box
               sx={{
                 ...style,
-                width: "50vw",
+                width: "55vw",
                 backgroundImage: `url(${src})`,
                 backgroundPosition: "center",
                 backgroundSize: "cover",

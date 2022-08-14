@@ -6,6 +6,7 @@ import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
+import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
@@ -50,16 +51,27 @@ const columns = [
 
 export default function LunchData() {
   const result = useSelector((state) => state?.lunch?.record[0]);
-  var modifiedRows = result?.map((element, index) => {
+  const sum = result?.map((el) => {
     return {
-      ...element,
-      userName: element?.employeeName,
-      index: index,
-      items: element?.extras,
-      roti: element?.rotiQuantity,
-      amountPaid: element?.amount
+      sumValue: el?.rotiQuantity
     };
   });
+
+  const totalRotti = sum.reduce((a, v) => (a = a + v.sumValue), 0);
+  var modifiedRows =
+    result.length > 0
+      ? result?.map((element, index) => {
+          return {
+            ...element,
+            userName: element?.employeeName,
+            index: index + 1,
+            items: element?.extras,
+            roti: element?.rotiQuantity,
+            amountPaid: element?.amount
+          };
+        })
+      : "";
+
   return (
     <ThemeProvider theme={theme}>
       <Card
@@ -96,6 +108,9 @@ export default function LunchData() {
                 rowsPerPageOptions={[5]}
                 getRowId={(row) => (row.id = uuidv4())}
               />
+              <Grid item>
+                Total Rotti : <b>{totalRotti}</b>
+              </Grid>
             </div>
           </Box>
         </CardContent>

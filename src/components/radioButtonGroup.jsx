@@ -8,11 +8,7 @@ export default function RadioButtonsGroup(props) {
   return (
     <FormControl sx={{ marginTop: "20px", width: "100%" }}>
       <FormLabel id="demo-radio-buttons-group-label">Tea Volume</FormLabel>
-      <RadioGroup
-        aria-labelledby="tea_volume"
-        value={props?.tea_volume}
-        name="radio-buttons-group"
-        defaultValue="Half cup">
+      <RadioGroup aria-labelledby="tea_volume" value={props?.tea_volume} name="radio-buttons-group">
         <FormControlLabel
           value="Half cup"
           onChange={(e) => {

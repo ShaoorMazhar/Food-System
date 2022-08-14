@@ -9,6 +9,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { editOrder } from "../services/services";
+import { ToastContainer, toast } from "react-toastify";
 import { orderData, deleteOrder } from "../services/services";
 import { lunchOrderItem, lunchOrderDelete } from "../redux/actions/action";
 import { useSelector, useDispatch } from "react-redux";
@@ -35,10 +36,9 @@ export default function LunchRequirement({ text, order }) {
   }, [order]);
 
   const handleSubmit = async (e) => {
-    let date = "2022-08-12T12:00:00";
-    // let date = new Date().toLocaleString("en-US", {
-    //   hourCycle: "h24"
-    // });
+    let date = new Date().toLocaleString("en-US", {
+      hourCycle: "h24"
+    });
     date = date + "Z";
     e.preventDefault();
     const newOrder = {
@@ -50,7 +50,12 @@ export default function LunchRequirement({ text, order }) {
       orderDate: date,
       orderType: text
     };
-    await orderData(newOrder);
+    const result = await orderData(newOrder);
+    if (result?.status === 200) {
+      toast("Your Order has been placed!");
+    } else {
+      toast(result?.response?.data?.metadata?.message);
+    }
   };
 
   const handleEditOrder = async (e) => {
@@ -62,12 +67,22 @@ export default function LunchRequirement({ text, order }) {
       amount: amount
     };
     const order = await editOrder(newOrder);
+    if (order?.status === 200) {
+      toast("Order updated Successfully!");
+    } else {
+      toast(order?.response?.data?.metadata?.message);
+    }
     dispatch(lunchOrderItem(order));
   };
 
   const handleDeleteOrder = async (e) => {
     e.preventDefault();
     const order = await deleteOrder(oId?._id);
+    if (order?.status === 200) {
+      toast("Order Deleted Successfully!");
+    } else {
+      toast(order?.response?.data?.metadata?.message);
+    }
     dispatch(lunchOrderDelete(order));
   };
   return (
@@ -150,6 +165,17 @@ export default function LunchRequirement({ text, order }) {
               endIcon={<CheckIcon />}
             />
           </Grid>
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </Grid>
       </Grid>
     </Box>

@@ -29,13 +29,14 @@ export default function SignUp() {
       password: password
     };
     const userData = await signUp(newUser);
-    dispatch(sign_up(userData));
-    if (userData?.metadata?.status === "SUCCESS") {
+    if (userData?.status === 200) {
       toast("Sign Up Successfully!");
       setUserName(""), setEmail(""), setPassword("");
     } else {
-      toast("Error! something went wrong");
+      toast(userData?.response?.data?.metadata?.message);
     }
+
+    dispatch(sign_up(userData));
   };
 
   return (

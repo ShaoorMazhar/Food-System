@@ -43,27 +43,33 @@ const columns = [
 
 export default function TeaData({ heading, type }) {
   if (type === "Morning-Tea") {
-    const result = useSelector((state) => state?.record?.record[0]);
-    var modifiedRows = result?.map((element, index) => {
-      return {
-        ...element,
-        userName: element?.employeeName,
-        index: index,
-        teaVolume: element?.teaVolume,
-        sugarQuantity: element?.sugerQuantity
-      };
-    });
+    const data = useSelector((state) => state?.record?.record[0]);
+    var modifiedRows =
+      data.length > 0
+        ? data?.map((element, index) => {
+            return {
+              ...element,
+              userName: element?.employeeName,
+              index: index + 1,
+              teaVolume: element?.teaVolume,
+              sugarQuantity: element?.sugerQuantity
+            };
+          })
+        : "";
   } else if (type === "Evening-Tea") {
     const result = useSelector((state) => state?.evening?.record[0]);
-    modifiedRows = result?.map((element, index) => {
-      return {
-        ...element,
-        userName: element?.employeeName,
-        index: index,
-        teaVolume: element?.teaVolume,
-        sugarQuantity: element?.sugerQuantity
-      };
-    });
+    modifiedRows =
+      result.length > 0
+        ? result?.map((element, index) => {
+            return {
+              ...element,
+              userName: element?.employeeName,
+              index: index + 1,
+              teaVolume: element?.teaVolume,
+              sugarQuantity: element?.sugerQuantity
+            };
+          })
+        : "";
   }
   return (
     <ThemeProvider theme={theme}>

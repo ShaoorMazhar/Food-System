@@ -13,14 +13,20 @@ import waiter from "../assets/image66.png";
 import { useSelector } from "react-redux";
 import { morningTeaStart } from "../constants/appConstants";
 import { morningTeaEnd } from "../constants/appConstants";
+import { lunchStart } from "../constants/appConstants";
+import { lunchEnd } from "../constants/appConstants";
+import { eveningTeaStart } from "../constants/appConstants";
+import { eveningTeaEnd } from "../constants/appConstants";
 import lunch from "../assets/image4.png";
 import evening from "../assets/image3.png";
+import { Box } from "@mui/material";
 export default function Home() {
   function inTime(start, end) {
     var now = new Date();
     var time = now.getHours() * 60 + now.getMinutes();
     return time >= start && time < end;
   }
+
   const user = useSelector((state) => state?.order[0]);
   const lunchh = useSelector((state) => state?.lunchOrder[0]);
   const tea = useSelector((state) => state?.eveningOrder[0]);
@@ -63,6 +69,13 @@ export default function Home() {
                 <Typography variant="h4">
                   Save Yours and mine time by placing your order before time...
                 </Typography>
+                <Typography variant="subtitle2" sx={{ marginBottom: "0.35em" }}>
+                  <Box component="span" sx={{ color: "red" }}>
+                    Note! :
+                  </Box>{" "}
+                  You can place Morning Tea before <b>11:00 AM</b> , Lunch before <b>01:00 PM</b>,
+                  Evening Tea before <b>05:00 PM</b>
+                </Typography>
               </Grid>
               <Grid
                 container
@@ -83,7 +96,7 @@ export default function Home() {
                     marginRight: "1%"
                   }}>
                   <BasicModal
-                    disabled={inTime(morningTeaStart, morningTeaEnd)}
+                    disabled={!inTime(morningTeaStart, morningTeaEnd)}
                     type="Morning-Tea"
                     data={
                       <TeaRequirements
@@ -101,6 +114,7 @@ export default function Home() {
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                   <BasicModal
+                    disabled={!inTime(lunchStart, lunchEnd)}
                     type="Lunch"
                     data={
                       <LunchRequirement
@@ -123,6 +137,7 @@ export default function Home() {
                   xs={12}
                   sx={{ display: "flex", justifyContent: "center", marginLeft: "1%" }}>
                   <BasicModal
+                    disabled={!inTime(eveningTeaStart, eveningTeaEnd)}
                     type="Evening-Tea"
                     data={
                       <TeaRequirements

@@ -18,12 +18,14 @@ import { signIn } from "../services/services";
 import { sign_In } from "../redux/actions/action";
 
 export default function SignIn({ handleChange }) {
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const newUser = {
       email: email,
       password: password
@@ -35,10 +37,11 @@ export default function SignIn({ handleChange }) {
       localStorage.setItem("token", token);
       navigate("/home");
     } else {
-      toast(`User Not Found`);
+      toast(`Email or Password Incorecct`);
     }
     setEmail("");
     setPassword("");
+    setLoading(false);
   };
 
   return (
@@ -93,6 +96,7 @@ export default function SignIn({ handleChange }) {
               variant="contained"
               text="Sign In"
               disableled={email === "" || password === ""}
+              loading={loading}
             />
 
             <Grid container sx={{ justifyContent: "space-between" }} mt={2}>
