@@ -75,7 +75,7 @@ export const evening_record = (text) => async (dispatch) => {
   }
 };
 
-export const eveningOrderItem = (text) => async (dispatch) => {
+export const evening_Order_Item = (text) => async (dispatch) => {
   try {
     dispatch({
       type: "orderTea",
@@ -86,7 +86,7 @@ export const eveningOrderItem = (text) => async (dispatch) => {
   }
 };
 
-export const eveningOrderDelete = (id) => async (dispatch) => {
+export const evening_Order_Delete = (id) => async (dispatch) => {
   try {
     dispatch({
       type: "deleteTea",
@@ -97,7 +97,7 @@ export const eveningOrderDelete = (id) => async (dispatch) => {
   }
 };
 
-export const lunchOrderItem = (text) => async (dispatch) => {
+export const lunch_Order_Item = (text) => async (dispatch) => {
   try {
     dispatch({
       type: "orderLunch",
@@ -108,7 +108,7 @@ export const lunchOrderItem = (text) => async (dispatch) => {
   }
 };
 
-export const lunchOrderDelete = (id) => async (dispatch) => {
+export const lunch_Order_Delete = (id) => async (dispatch) => {
   try {
     dispatch({
       type: "deleteLunch",

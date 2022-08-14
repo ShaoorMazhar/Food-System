@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
 import { ThemeProvider } from "@mui/material/styles";
 import { getEmployeeOrder, getAllOrders } from "../services/services";
-import { order_item, lunchOrderItem, eveningOrderItem } from "../redux/actions/action";
+import { order_item, lunch_Order_Item, evening_Order_Item } from "../redux/actions/action";
 import { order_record, lunch_record, evening_record } from "../redux/actions/action";
 import theme from "../theme";
 
@@ -34,9 +34,9 @@ export default function BasicModal({ disabled, type, background, src, data }) {
           if (type === "Morning-Tea") {
             dispatch(order_item(res?.data?.payload?.data));
           } else if (type === "Lunch") {
-            dispatch(lunchOrderItem(res?.data?.payload?.data));
+            dispatch(lunch_Order_Item(res?.data?.payload?.data));
           } else if (type === "Evening-Tea") {
-            dispatch(eveningOrderItem(res?.data?.payload?.data));
+            dispatch(evening_Order_Item(res?.data?.payload?.data));
           }
         })
         .catch((err) => {

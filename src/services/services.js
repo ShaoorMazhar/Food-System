@@ -1,9 +1,9 @@
 import { request, setHeaders } from "./common";
 import axios from "axios";
-
+import { BASE_URL } from "../constants/appConstants";
 export const signUp = async (payload) => {
   try {
-    return await axios.post("https://lu-meal-stage.herokuapp.com/api/users/sign-up", payload);
+    return await axios.post(BASE_URL + "/api/users/sign-up", payload);
   } catch (error) {
     return error;
   }
@@ -23,11 +23,7 @@ export const signIn = async (body) => {
 
 export const orderData = async (body) => {
   try {
-    return await axios.post(
-      "https://lu-meal-stage.herokuapp.com/api/users/create-order",
-      body,
-      setHeaders()
-    );
+    return await axios.post(BASE_URL + "/api/users/create-order", body, setHeaders());
   } catch (error) {
     return error;
   }
@@ -36,7 +32,7 @@ export const orderData = async (body) => {
 export const getEmployeeOrder = async (email, orderType) => {
   try {
     return await axios.get(
-      `https://lu-meal-stage.herokuapp.com/api/users/get-employee-order?email=${email}&orderType=${orderType}`
+      BASE_URL + `/api/users/get-employee-order?email=${email}&orderType=${orderType}`
     );
   } catch (error) {
     return error;
@@ -46,7 +42,7 @@ export const getEmployeeOrder = async (email, orderType) => {
 export const editOrder = async (newOrder) => {
   try {
     return await axios.post(
-      `https://lu-meal-stage.herokuapp.com/api/users/update-order-by-id/${newOrder._id}`,
+      BASE_URL + `/api/users/update-order-by-id/${newOrder._id}`,
       newOrder,
       setHeaders()
     );
@@ -57,11 +53,7 @@ export const editOrder = async (newOrder) => {
 
 export const deleteOrder = async (id) => {
   try {
-    return await axios.post(
-      `https://lu-meal-stage.herokuapp.com/api/users/delete-order/${id}`,
-      id,
-      setHeaders()
-    );
+    return await axios.post(BASE_URL + `/api/users/delete-order/${id}`, id, setHeaders());
   } catch (error) {
     return error;
   }
@@ -69,9 +61,7 @@ export const deleteOrder = async (id) => {
 
 export const getAllOrders = async (orderType) => {
   try {
-    return await axios.get(
-      `https://lu-meal-stage.herokuapp.com/api/admin/get-available-orders/${orderType}`
-    );
+    return await axios.get(BASE_URL + `/api/admin/get-available-orders/${orderType}`);
   } catch (error) {
     return error;
   }

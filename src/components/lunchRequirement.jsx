@@ -11,7 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { editOrder } from "../services/services";
 import { ToastContainer, toast } from "react-toastify";
 import { orderData, deleteOrder } from "../services/services";
-import { lunchOrderItem } from "../redux/actions/action";
+import { lunch_Order_Item } from "../redux/actions/action";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function LunchRequirement({ text, order }) {
@@ -28,7 +28,7 @@ export default function LunchRequirement({ text, order }) {
   const oId = useSelector((state) => state?.lunchOrder[0]);
 
   useEffect(() => {
-    if (order) {
+    if (order?.itemDescription && order?.rotiQuantity && order?.amount) {
       setItemDescription(order?.itemDescription);
       setRotiQuantity(order?.rotiQuantity);
       setAmount(order?.amount);
@@ -38,6 +38,7 @@ export default function LunchRequirement({ text, order }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let date = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Karachi",
       hourCycle: "h24"
     });
     date = date + "Z";
@@ -53,6 +54,10 @@ export default function LunchRequirement({ text, order }) {
     const result = await orderData(newOrder);
     if (result?.status === 200) {
       toast("Your Order has been placed!");
+      setItemDescription("");
+      setRotiQuantity("");
+      setAmount("");
+      location.reload();
     } else {
       toast(result?.response?.data?.metadata?.message);
     }
@@ -66,24 +71,28 @@ export default function LunchRequirement({ text, order }) {
       rotiQuantity: rotiQuantity,
       amount: amount
     };
-    const order = await editOrder(newOrder);
-    if (order?.status === 200) {
-      toast(order?.data?.metadata?.message);
+    const userOrder = await editOrder(newOrder);
+    if (userOrder?.status === 200) {
+      toast(userOrder?.data?.metadata?.message);
+      location.reload();
     } else {
-      toast(order?.response?.data?.metadata?.message);
+      toast(userOrder?.response?.data?.metadata?.message);
     }
-    dispatch(lunchOrderItem(order));
+    dispatch(lunch_Order_Item(userOrder));
   };
 
   const handleDeleteOrder = async (e) => {
     e.preventDefault();
-    const order = await deleteOrder(oId?._id);
-    if (order?.status === 200) {
-      toast(order?.data?.metadata?.message);
+    const lunchOrder = await deleteOrder(oId?._id);
+    if (lunchOrder?.status === 200) {
+      toast(lunchOrder?.data?.metadata?.message);
+      setItemDescription("");
+      setRotiQuantity("");
+      setAmount("");
     } else {
-      toast(order?.response?.data?.metadata?.message);
+      toast(lunchOrder?.response?.data?.metadata?.message);
     }
-    dispatch(lunchOrderItem(order));
+    dispatch(lunch_Order_Item(lunchOrder));
   };
   return (
     <Box
@@ -156,9 +165,7 @@ export default function LunchRequirement({ text, order }) {
           </Grid>
           <Grid item xs={12} md={3} lg={2}>
             <Btn
-              disabled={
-                userName === "" || rotiQuantity === "" || itemDescription === "" || amount === ""
-              }
+              disabled={!rotiQuantity || !itemDescription || !amount}
               text="Order"
               onClick={handleSubmit}
               variant="contained"
