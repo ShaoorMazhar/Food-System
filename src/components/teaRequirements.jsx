@@ -102,7 +102,6 @@ export default function TeaRequirements({ text, order }) {
     e.preventDefault();
     if (text === "Morning-Tea") {
       const order = await deleteOrder(oId?._id);
-      console.log(order);
       if (order?.status === 200) {
         toast(order?.data?.metadata?.message);
 
