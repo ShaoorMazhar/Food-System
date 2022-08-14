@@ -18,7 +18,7 @@ export default function LunchRequirement({ text, order }) {
   const [itemDescription, setItemDescription] = useState("");
   const [rotiQuantity, setRotiQuantity] = useState("");
   const [amount, setAmount] = useState("");
-
+  const min = 0;
   const dispatch = useDispatch();
   const user = useSelector((state) => {
     const name = state?.signIn?.signIn;
@@ -123,6 +123,7 @@ export default function LunchRequirement({ text, order }) {
           type="number"
           id="amount"
           label="Amount Paid"
+          inputProps={{ min }}
           variant="outlined"
           value={amount}
           sx={{ marginTop: "20px", width: "100%" }}
@@ -135,6 +136,7 @@ export default function LunchRequirement({ text, order }) {
           id="roti"
           label="Roti"
           variant="outlined"
+          inputProps={{ min }}
           value={rotiQuantity}
           sx={{ marginTop: "20px", width: "100%" }}
         />

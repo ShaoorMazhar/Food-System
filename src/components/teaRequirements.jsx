@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 export default function TeaRequirements({ text, order }) {
   const [sugarQuantity, setSugarQuantity] = useState("");
   const [teaVolume, setTeaVolume] = useState("");
+  const min = 0;
+  const max = 10;
   const dispatch = useDispatch();
   const user = useSelector((state) => {
     const name = state?.signIn?.signIn;
@@ -154,8 +156,10 @@ export default function TeaRequirements({ text, order }) {
           label="Sugar Quantity(spoon)"
           variant="outlined"
           value={sugarQuantity}
+          inputProps={{ min, max }}
           sx={{ marginTop: "20px", width: "100%" }}
         />
+
         <RadioButtonsGroup tea_volume={teaVolume} setTea_volume={setTeaVolume} />
         <Grid container sx={{ justifyContent: "space-around", marginTop: "25px" }}>
           <Grid item xs={12} lg={5}></Grid>
