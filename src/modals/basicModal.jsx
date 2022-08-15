@@ -1,9 +1,12 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "@mui/material/Modal";
 import { ThemeProvider } from "@mui/material/styles";
-
+import { getEmployeeOrder, getAllOrders } from "../services/services";
+import { order_item, lunch_Order_Item, evening_Order_Item } from "../redux/actions/action";
+import { order_record, lunch_record, evening_record } from "../redux/actions/action";
 import theme from "../theme";
 
 const style = {
@@ -18,18 +21,66 @@ const style = {
   p: 4
 };
 
-export default function BasicModal(props) {
+export default function BasicModal({ disabled, type, background, src, data }) {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+    const callingApi = () => {
+      getEmployeeOrder(user.email, type)
+        .then((res) => {
+          if (type === "Morning-Tea") {
+            dispatch(order_item(res?.data?.payload?.data));
+          } else if (type === "Lunch") {
+            dispatch(lunch_Order_Item(res?.data?.payload?.data));
+          } else if (type === "Evening-Tea") {
+            dispatch(evening_Order_Item(res?.data?.payload?.data));
+          }
+        })
+        .catch((err) => {
+          return err;
+        });
+      useDispatch;
+    };
+    callingApi();
+    const gettingOrders = () => {
+      getAllOrders(type)
+        .then((res) => {
+          if (type === "Morning-Tea") {
+            dispatch(order_record(res?.data?.payload?.data));
+            setOpenModal(true);
+          } else if (type === "Lunch") {
+            dispatch(lunch_record(res?.data?.payload?.data));
+            setOpenModal(true);
+          } else if (type === "Evening-Tea") {
+            dispatch(evening_record(res?.data?.payload?.data));
+            setOpenModal(true);
+          }
+        })
+        .catch((err) => {
+          return err;
+        });
+      useDispatch;
+    };
+    gettingOrders();
+  };
   const handleClose = () => setOpen(false);
+  const user = useSelector((state) => {
+    const name = state?.signIn?.signIn;
+    return name ? name : "";
+  });
 
   return (
     <div>
       <ThemeProvider theme={theme}>
         <Button
           className="modalButton"
+          disabled={disabled}
+          type={type}
           sx={{
-            backgroundImage: `url(${props.background})`,
+            backgroundImage: `url(${background})`,
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             color: "#fafafa",
@@ -43,24 +94,25 @@ export default function BasicModal(props) {
           }}
           onClick={handleOpen}
         />
-
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description">
-          <Box
-            sx={{
-              ...style,
-              width: "50vw",
-              backgroundImage: `url(${props.src})`,
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat"
-            }}>
-            {props.data}
-          </Box>
-        </Modal>
+        {openModal && (
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description">
+            <Box
+              sx={{
+                ...style,
+                width: "55vw",
+                backgroundImage: `url(${src})`,
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat"
+              }}>
+              {data}
+            </Box>
+          </Modal>
+        )}
       </ThemeProvider>
     </div>
   );

@@ -7,7 +7,7 @@ export default function Authentication(props) {
     if (!localStorage.getItem("email")) {
       navigate("/adminLogin");
     } else {
-      navigate("/homeadminPortal");
+      navigate("/adminPortal");
     }
   }, []);
   return (

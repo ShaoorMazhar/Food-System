@@ -3,12 +3,10 @@ const theme = createTheme({
   palette: {
     primary: {
       main: "#1b4d89 ", //blue
-      //   dark: "#1A2027",
       light: "#fafafa" //white
     },
     secondary: {
       main: "#c8d8e4", //light blue
-      //   dark: "#3E5060",
       light: "#6db784" //green
     }
   },
@@ -45,7 +43,8 @@ const theme = createTheme({
     MuiTooltip: {
       styleOverrides: {
         tooltip: {
-          backgroundColor: "#c8d8e4",
+          backgroundColor: "white",
+          border: "1px solid black",
           color: "black"
         }
       }

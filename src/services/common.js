@@ -41,8 +41,13 @@ export const request = async (
       return res;
     }
   } catch (err) {
-    console.log(err);
     toast(NETWORK_ERROR);
     throw new Error(err);
   }
+};
+export const setHeaders = () => {
+  const headerConfig = {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") }
+  };
+  return headerConfig;
 };
