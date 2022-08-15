@@ -1,13 +1,46 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+@media (min-width: 300px) and (max-width: 600px) {
+  .overlay {
+    width: 100% !important;
+    color: #fafafa !important;
+    margin-top: 10px !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+  .waiter {
+    display: none;
+  }
+}
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.modalButton:hover {
+  opacity: 0.6;
+}
+@media (min-width: 300px) and (max-width: 900px) {
+  .modalButton {
+    width: 14rem !important;
+    height: 14rem !important;
+    margin: 3% !important;
+  }
+}
+
+.tabPannel {
+  flex-grow: 1 !important;
+}
+
+.appbar {
+  height: 75px !important;
+  display: "flex";
+  justify-content: center;
+}
+.super-app-theme--header {
+  background-color: #1b4d89 !important;
+  color: white;
 }

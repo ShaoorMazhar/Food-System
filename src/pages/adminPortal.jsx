@@ -5,31 +5,28 @@ import BasicModal from "../modals/basicModal";
 import Typography from "@mui/material/Typography";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
-import morning from "../assets/image2.png";
-import LunchRequirement from "../components/lunchRequirement";
-import TeaRequirements from "../components/teaRequirements";
+import morning from "../assets/morningTeaBtn.png";
+import TeaData from "../components/teaData";
 import background from "../assets/image33.PNG";
-import waiter from "../assets/image66.png";
-import { useSelector } from "react-redux";
-import { morningTeaStart } from "../constants/appConstants";
-import { morningTeaEnd } from "../constants/appConstants";
-import { lunchStart } from "../constants/appConstants";
-import { lunchEnd } from "../constants/appConstants";
-import { eveningTeaStart } from "../constants/appConstants";
-import { eveningTeaEnd } from "../constants/appConstants";
-import lunch from "../assets/image4.png";
-import evening from "../assets/image3.png";
 import { Box } from "@mui/material";
-export default function Home() {
+import {
+  morningResultStart,
+  morningResultEnd,
+  lunchResultStart,
+  lunchResultEnd,
+  eveningResultStart,
+  eveningResultEnd
+} from "../constants/appConstants";
+import waiter from "../assets/group1.png";
+import lunch from "../assets/lunchBtn.png";
+import evening from "../assets/eveningTeaBtn.png";
+import LunchData from "../components/lunchData";
+export default function AdminPortal() {
   function inTime(start, end) {
     var now = new Date();
     var time = now.getHours() * 60 + now.getMinutes();
     return time >= start && time < end;
   }
-
-  const user = useSelector((state) => state?.order[0]);
-  const lunchh = useSelector((state) => state?.lunchOrder[0]);
-  const tea = useSelector((state) => state?.eveningOrder[0]);
 
   return (
     <div>
@@ -66,15 +63,13 @@ export default function Home() {
                   textAlign: "center"
                 }}>
                 <Typography variant="h3">Hello!!</Typography>
-                <Typography variant="h4">
-                  Save Yours and mine time by placing your order before time...
-                </Typography>
+                <Typography variant="h4">Bring people together with great food...</Typography>
                 <Typography variant="subtitle2" sx={{ marginBottom: "0.35em" }}>
                   <Box component="span" sx={{ color: "red" }}>
                     Note! :
                   </Box>{" "}
-                  You can place Morning Tea before <b>11:00 AM</b> , Lunch before <b>01:00 PM</b>,
-                  Evening Tea before <b>05:00 PM</b>
+                  You can check Morning Tea order after <b>11:00 AM</b> , Lunch order after{" "}
+                  <b>01:00 PM</b>, Evening Tea order after <b>05:00 PM</b>
                 </Typography>
               </Grid>
               <Grid
@@ -96,39 +91,18 @@ export default function Home() {
                     marginRight: "1%"
                   }}>
                   <BasicModal
-                    disabled={!inTime(morningTeaStart, morningTeaEnd)}
                     type="Morning-Tea"
-                    data={
-                      <TeaRequirements
-                        text="Morning-Tea"
-                        order={{
-                          _id: user?._id,
-                          sugarQuantity: user?.sugerQuantity,
-                          teaVolume: user?.teaVolume
-                        }}
-                      />
-                    }
+                    disabled={!inTime(morningResultStart, morningResultEnd)}
+                    data={<TeaData heading="Morning Tea" type="Morning-Tea" />}
                     background={morning}
-                    src="https://img.freepik.com/premium-photo/coffee-break-minimal-white-blue-background-template-with-cup-coffee-copy-space_197174-9.jpg?w=2000"
                   />
                 </Grid>
                 <Grid item sm={3} xs={12} sx={{ display: "flex", justifyContent: "center" }}>
                   <BasicModal
-                    disabled={!inTime(lunchStart, lunchEnd)}
+                    disabled={!inTime(lunchResultStart, lunchResultEnd)}
                     type="Lunch"
-                    data={
-                      <LunchRequirement
-                        text="Lunch"
-                        order={{
-                          _id: lunchh?._id,
-                          itemDescription: lunchh?.extras,
-                          rotiQuantity: lunchh?.rotiQuantity,
-                          amount: lunchh?.amount
-                        }}
-                      />
-                    }
+                    data={<LunchData type="Lunch" />}
                     background={lunch}
-                    src="https://t4.ftcdn.net/jpg/02/76/72/01/360_F_276720125_wVGmNFLvQNS1LCVdNxKNmmBUkJ26cVMO.jpg"
                   />
                 </Grid>
                 <Grid
@@ -137,26 +111,16 @@ export default function Home() {
                   xs={12}
                   sx={{ display: "flex", justifyContent: "center", marginLeft: "1%" }}>
                   <BasicModal
-                    disabled={!inTime(eveningTeaStart, eveningTeaEnd)}
+                    disabled={!inTime(eveningResultStart, eveningResultEnd)}
                     type="Evening-Tea"
-                    data={
-                      <TeaRequirements
-                        text="Evening-Tea"
-                        order={{
-                          _id: tea?._id,
-                          sugarQuantity: tea?.sugerQuantity,
-                          teaVolume: tea?.teaVolume
-                        }}
-                      />
-                    }
+                    data={<TeaData heading="Evening Tea" type="Evening-Tea" />}
                     background={evening}
-                    src="https://img.freepik.com/premium-photo/coffee-break-minimal-white-blue-background-template-with-cup-coffee-copy-space_197174-9.jpg?w=2000"
                   />
                 </Grid>
               </Grid>
             </Grid>
             <Grid item xs={12} md={4} className="waiter">
-              <img src={waiter} alt="home" width="80%" height="100%" />
+              <img src={waiter} alt="home" width="100%" height="110%" />
             </Grid>
           </Grid>
         </Grid>

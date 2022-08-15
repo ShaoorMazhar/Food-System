@@ -1,15 +1,17 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import CheckIcon from "@mui/icons-material/Check";
-export default function Btn(props) {
+import ClipLoader from "react-spinners/ClipLoader";
+export default function Btn({ disabled, color, icon, onClick, text, variant, type, loading }) {
   return (
     <Button
-      disabled={props.disabled}
+      type={type}
+      disabled={disabled}
+      color={color}
       sx={{ marginTop: "20px", width: "100%" }}
-      variant="contained"
-      endIcon={<CheckIcon />}
-      onClick={props.onClick}>
-      {props.text}
+      variant={variant}
+      endIcon={icon}
+      onClick={onClick}>
+      {loading ? <ClipLoader /> : text}
     </Button>
   );
 }
